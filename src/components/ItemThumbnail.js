@@ -4,12 +4,12 @@ import '../styling/item-thumbnail.css';
 
 const ItemThumbNail = (props) => {
     return (
-        <div className="item-container">
+        <div className="thumbnail-container">
             <div className="img-container">
                 <img src={placeholder} alt="default img placeholder" />
             </div>
             <h4 className="item-name">{props.item.name}</h4>
-    <p className="item-price">{props.item.price}</p>
+             <p className="item-price">{props.item.price}</p>
             <p className="item-quantity">{props.item.quantity}</p>
         </div>
     )

@@ -1,6 +1,9 @@
-#main_container {
+#items_container {
     width: 80%;
-    height: 500px;
+    height: auto;
     border: solid black 1px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
 }

@@ -1,0 +1,15 @@
+.item-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 700px;
+    border: blue solid 1px;
+}
+
+.left-item-content, .right-item-content {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    border: solid black 1px;
+}
+
