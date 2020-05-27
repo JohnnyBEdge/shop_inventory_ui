@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import '../styling/main.css';
 import ItemThumbnail from '../components/ItemThumbnail';
+import ItemPage from '../components/ItemPage';
+import Login from '../pages/Login';
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -8,7 +11,7 @@ import {
     Link
   } from "react-router-dom";
 
-import ItemPage from '../components/ItemPage';
+
 
 const Main = () => {
 
@@ -41,6 +44,9 @@ const item = inventory.map((item) => {
                         <li>
                             <Link to="/item-page">Item Page</Link>
                         </li>
+                        <li>
+                            <Link to="/login">Login Page</Link>
+                        </li>
                     </ul>
 
                     <Switch>
@@ -52,6 +58,10 @@ const item = inventory.map((item) => {
 
                         <Route path="/item-page">
                             <ItemPage />
+                        </Route>
+
+                        <Route path="/login">
+                            <Login />
                         </Route>
                     </Switch>
                 </Router>
