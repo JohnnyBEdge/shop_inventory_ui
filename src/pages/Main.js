@@ -4,6 +4,7 @@ import ItemThumbnail from '../components/ItemThumbnail';
 import ItemPage from '../components/ItemPage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
+import InventoryManagement from '../pages/InventoryManagement';
 
 import {
     BrowserRouter as Router,
@@ -51,6 +52,9 @@ const item = inventory.map((item) => {
                         <li>
                             <Link to="/sign-up">Sign Up</Link>
                         </li>
+                        <li>
+                            <Link to="/inventory">Manage Inventory</Link>
+                        </li>
                     </ul>
 
                     <Switch>
@@ -70,6 +74,10 @@ const item = inventory.map((item) => {
 
                         <Route path="/sign-up">
                             <SignUp />
+                        </Route>
+
+                        <Route path="/inventory">
+                            <InventoryManagement />
                         </Route>
                     </Switch>
                 </Router>
