@@ -1,0 +1,9 @@
+.item-container {
+    width: 150px;
+    height: 200px;
+    border: solid black 1px;
+}
+
+img {
+    width: 60px
+}
