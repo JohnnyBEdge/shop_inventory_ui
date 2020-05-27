@@ -9,7 +9,12 @@
 .left-item-content, .right-item-content {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 1fr;
     border: solid black 1px;
+    align-items: center;
+}
+
+.image-carousel {
+
 }
 

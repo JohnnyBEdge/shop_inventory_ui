@@ -1,6 +1,9 @@
 import React from 'react';
 import placeholder from '../styling/imgs/img-placeholder.png';
 import '../styling/item-page.css';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import Button from '@material-ui/core/Button';
+
 
 const ItemPage = (props) => {
     return(
@@ -16,7 +19,15 @@ const ItemPage = (props) => {
                 <p className="item-name">Item Name</p>
                 <p className="item-price">Item Price</p>
                 <p className="item-quantity">Item Quantity</p>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    endIcon={<AddShoppingCartIcon />}
+                >Add to Cart
+                </Button>
             </div>
+
+
 
         </div>
     )
