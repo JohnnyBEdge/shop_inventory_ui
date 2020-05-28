@@ -1,31 +1,34 @@
 import React, {useState} from 'react';
 
 import Modal from '@material-ui/core/Modal';
-import EditIcon from '@material-ui/icons/Edit';
+import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
 
 
-const EditModal = (props) => {
+const AddModal = (props) => {
     const [open, setOpen] = useState(false);    
 
-    const [name, setName] = useState(props.inventory.name);
-    const [price, setprice] = useState(props.inventory.price);
-    const [quantity, setQuantity] = useState(props.inventory.quantity);
-    const [desc, setDesc] = useState(props.inventory.desc);
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [desc, setDesc] = useState('');
 
-    // const editInventory = () => {
-    //     fetch(`http://localhost:5100/api/inventory/${props.inventory._id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({name, price,quantity, desc})
-    //     })
-    //     .then(getInventory)
-    //     .then(toggle());
-    // };
+    const addInventory = () => {
+        fetch(`http://localhost:5100/api/inventory`, {
+            method: "POST",
+            headers: {
+                "Content-type" : "application/json"
+            },
+            body: JSON.stringify({name, price, quantity, desc})
+        }).then(setName(''), setPrice(''), setQuantity(''), setDesc(''))
+        .then(toggleModal())
+        .then(props.getInventory())
+    }
+
+
 
     const toggleModal = () => {
         if(open){
@@ -56,10 +59,25 @@ const EditModal = (props) => {
 
     const classes = useStyles();
 
+    AddModal.propTypes = {
+        name: PropTypes.string.isRequired,
+        quantity: PropTypes.number.isRequired,
+        price: PropTypes.string.isRequired,
+        desc: PropTypes.string.isRequired
+    }
+
 
     return (
         <div id="edit_modal_container">
-            <EditIcon onClick={toggleModal} />
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                startIcon={<AddIcon />}
+                onClick={toggleModal}
+            >
+                Add Item
+            </Button>
             <Modal
                 open={open}
                 onClose={toggleModal}
@@ -68,7 +86,7 @@ const EditModal = (props) => {
                 >
 
                 <div className={classes.paper}>
-                    <h2 id="simple-modal-title">Edit Item</h2>
+                    <h2 id="simple-modal-title">Add Item</h2>
                     <TextField
                         name="name"
                         variant="outlined"
@@ -77,7 +95,6 @@ const EditModal = (props) => {
                         id="name"
                         label="Item Name"
                         className={classes.input}
-                        value={name}
                         onChange={({target}) => setName(target.value)}
                     />
                     <TextField
@@ -88,6 +105,7 @@ const EditModal = (props) => {
                         id="quantity"
                         label="Quantity"
                         className={classes.input}
+                        onChange={({target}) => setQuantity(target.value)}
                     />
                     <TextField
                         name="price"
@@ -97,6 +115,7 @@ const EditModal = (props) => {
                         id="price"
                         label="Price"
                         className={classes.input}
+                        onChange={({target}) => setPrice(target.value)}
                     />
                     <TextField
                         name="desc"
@@ -106,14 +125,16 @@ const EditModal = (props) => {
                         id="desc"
                         label="Description"
                         className={classes.input}
+                        onChange={({target}) => setDesc(target.value)}
                     />
                     <Button
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.button}
+                        onClick={() => addInventory()}
                     >
-                        Update
+                        Add
                     </Button>                                                        
                     <Button
                         fullWidth
@@ -132,4 +153,4 @@ const EditModal = (props) => {
     )
 };
 
-export default EditModal;
+export default AddModal;

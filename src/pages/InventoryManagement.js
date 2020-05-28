@@ -1,5 +1,6 @@
 import React from 'react';
 import EditModal from '../components/EditModal';
+import AddModal from '../components/AddModal';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -33,6 +34,7 @@ const InventoryManagement = (props) => {
     return (
         <div id="inventory_container">
             <TableContainer component={Paper}>
+                <AddModal getInventory={props.getInventory}/>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                     <TableRow>
@@ -58,9 +60,8 @@ const InventoryManagement = (props) => {
                         <TableCell align="right">{item.price}</TableCell>
                         <TableCell align="left" className={classes.descCell}>{item.desc}</TableCell>
                         <TableCell align="left">
-                            <EditModal />
+                            <EditModal inventory={props.inventory} />
                         </TableCell>
-                        {/* <TableCell align="right">{item.isActive}</TableCell> */}
                         </TableRow>
                     ))}
                     </TableBody>

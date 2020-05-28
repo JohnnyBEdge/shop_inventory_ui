@@ -77,7 +77,7 @@ const item = inventory.map((item) => {
                         </Route>
 
                         <Route path="/inventory">
-                            <InventoryManagement inventory={inventory}/>
+                            <InventoryManagement inventory={inventory} getInventory={getInventory}/>
                         </Route>
                     </Switch>
                 </Router>
