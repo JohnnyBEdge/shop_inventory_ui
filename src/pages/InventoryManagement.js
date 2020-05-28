@@ -1,4 +1,5 @@
 import React from 'react';
+import EditModal from '../components/EditModal';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -9,7 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-import EditIcon from '@material-ui/icons/Edit';
+
 
 const InventoryManagement = (props) => {
     const useStyles = makeStyles({
@@ -56,7 +57,9 @@ const InventoryManagement = (props) => {
                         <TableCell align="right" className={classes.quantityCell}>{item.quantity}</TableCell>
                         <TableCell align="right">{item.price}</TableCell>
                         <TableCell align="left" className={classes.descCell}>{item.desc}</TableCell>
-                        <TableCell align="left"><EditIcon /></TableCell>
+                        <TableCell align="left">
+                            <EditModal />
+                        </TableCell>
                         {/* <TableCell align="right">{item.isActive}</TableCell> */}
                         </TableRow>
                     ))}
