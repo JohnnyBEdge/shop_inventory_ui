@@ -5,27 +5,29 @@ import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
 
 
 const EditModal = (props) => {
     const [open, setOpen] = useState(false);    
 
     const [name, setName] = useState(props.inventory.name);
-    const [price, setprice] = useState(props.inventory.price);
+    const [price, setPrice] = useState(props.inventory.price);
     const [quantity, setQuantity] = useState(props.inventory.quantity);
     const [desc, setDesc] = useState(props.inventory.desc);
 
-    // const editInventory = () => {
-    //     fetch(`http://localhost:5100/api/inventory/${props.inventory._id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({name, price,quantity, desc})
-    //     })
-    //     .then(getInventory)
-    //     .then(toggle());
-    // };
+
+    const editInventory = () => {
+        fetch(`http://localhost:5100/api/inventory/${props.inventory._id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({name, price,quantity, desc})
+        })
+        .then(() => props.getInventory())
+        .then(() => toggleModal())
+    };
 
     const toggleModal = () => {
         if(open){
@@ -47,7 +49,7 @@ const EditModal = (props) => {
           left: '37%',
         },
         button: {
-            margin: theme.spacing(3, 0, 2),
+            margin: theme.spacing(2, 0, 2),
           },
         input: {
             margin: theme.spacing(1,0,1)
@@ -55,6 +57,13 @@ const EditModal = (props) => {
       }));
 
     const classes = useStyles();
+
+    EditModal.propTypes = {
+        name: PropTypes.string.isRequired,
+        quantity: PropTypes.number.isRequired,
+        price: PropTypes.string.isRequired,
+        desc: PropTypes.string.isRequired
+    }
 
 
     return (
@@ -88,6 +97,8 @@ const EditModal = (props) => {
                         id="quantity"
                         label="Quantity"
                         className={classes.input}
+                        value={quantity}
+                        onChange={({target}) => setQuantity(target.value)}
                     />
                     <TextField
                         name="price"
@@ -97,6 +108,8 @@ const EditModal = (props) => {
                         id="price"
                         label="Price"
                         className={classes.input}
+                        value={price}
+                        onChange={({target}) => setPrice(target.value)}
                     />
                     <TextField
                         name="desc"
@@ -106,12 +119,17 @@ const EditModal = (props) => {
                         id="desc"
                         label="Description"
                         className={classes.input}
+                        multiline = {true}
+                        rows="10"
+                        value={desc}
+                        onChange={({target}) => setDesc(target.value)}
                     />
                     <Button
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.button}
+                        onClick={() => editInventory()}
                     >
                         Update
                     </Button>                                                        

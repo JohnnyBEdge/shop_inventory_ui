@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import PropTypes from 'prop-types';
+
 
 
 const AddModal = (props) => {
@@ -23,9 +23,9 @@ const AddModal = (props) => {
                 "Content-type" : "application/json"
             },
             body: JSON.stringify({name, price, quantity, desc})
-        }).then(setName(''), setPrice(''), setQuantity(''), setDesc(''))
-        .then(toggleModal())
-        .then(props.getInventory())
+        }).then(() => {setName(''); setPrice(''); setQuantity(''); setDesc('')})
+        .then(() => toggleModal())
+        .then(() => props.getInventory())
     }
 
 
@@ -59,12 +59,7 @@ const AddModal = (props) => {
 
     const classes = useStyles();
 
-    AddModal.propTypes = {
-        name: PropTypes.string.isRequired,
-        quantity: PropTypes.number.isRequired,
-        price: PropTypes.string.isRequired,
-        desc: PropTypes.string.isRequired
-    }
+
 
 
     return (

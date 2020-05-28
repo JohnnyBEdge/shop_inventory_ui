@@ -60,7 +60,7 @@ const InventoryManagement = (props) => {
                         <TableCell align="right">{item.price}</TableCell>
                         <TableCell align="left" className={classes.descCell}>{item.desc}</TableCell>
                         <TableCell align="left">
-                            <EditModal inventory={props.inventory} />
+                            <EditModal inventory={item} getInventory={props.getInventory} />
                         </TableCell>
                         </TableRow>
                     ))}
