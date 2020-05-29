@@ -19,11 +19,13 @@ const SignUp = () => {
     const [lname, setLname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordMatch, setPasswordMatch] = useState('');
 
     const [fNameError, setFNameError] = useState(false);
     const [lNameError, setLNameError] = useState(false);
-    // const [fNameError, setFNameError] = useState(false);
-    // const [fNameError, setFNameError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [passwordMatchError, setPasswordMatchError] = useState(false);
 
     const emailRegex = RegExp(
         /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -35,7 +37,7 @@ const SignUp = () => {
         /^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/
     );
 
-    //do form check on blur? 
+
 
     const handleFormValidation = (e) => {
         const {name, value} = e;
@@ -45,21 +47,41 @@ const SignUp = () => {
                 break;
             case "lastName":
                 lname === '' ? setLNameError(true) : setLNameError(false);
-                break;                
-    
-    }
+                break;
+            case "email":
+                email.match(emailRegex) ? setEmailError(false) : setEmailError(true);
+                break;
+            case "password":
+                value.match(passwordRegex) ? setPasswordError(false) : setPasswordError(true);
+                break;    
+            case "passwordMatch":
+                value.match(password) ? setPasswordMatchError(false) : setPasswordMatchError(true);
+                break;    
+        }
     }
 
 
-    // const addAccount = () => {
-    //     fetch(`http://localhost:5100/api/accounts`, {
-    //         method: "POST",
-    //         header: {
-    //             "Content-Type" : "application/json"
-    //         },
-    //         body: JSON.stringify({fname, lname, email, password})
-    //     }).then(() => {setFname(''); setLname(''); setEmail(''), setPassword('')})
-    // };
+    const addAccount = () => {
+
+        if(fNameError === false && fname !== '' 
+            && lNameError === false && lname !== ''
+            && emailError === false && email !== ''
+            && passwordError === false && password !== ''
+            && passwordMatchError === false){
+                console.log("valid form")
+            } else {
+                console.log("invalid form")
+            };
+
+
+        // fetch(`http://localhost:5100/api/accounts`, {
+        //     method: "POST",
+        //     header: {
+        //         "Content-Type" : "application/json"
+        //     },
+        //     body: JSON.stringify({fname, lname, email, password})
+        // }).then(() => {setFname(''); setLname(''); setEmail(''), setPassword('')})
+    };
 
     const useStyles = makeStyles((theme) => ({
         paper: {
@@ -132,6 +154,7 @@ const SignUp = () => {
                     <TextField
                         variant="outlined"
                         required
+                        error={emailError}
                         fullWidth
                         id="email"
                         label="Email Address"
@@ -139,46 +162,49 @@ const SignUp = () => {
                         autoComplete="email"
                         value={email}
                         onChange={({target}) => setEmail(target.value)}
+                        onBlur={({target}) => handleFormValidation(target)}
                     />
                     </Grid>
                     <Grid item xs={12}>
                     <TextField
                         variant="outlined"
+                        error={passwordError}
+                        // type="password"
                         required
                         fullWidth
                         id="password"
                         label="Create Password"
                         name="password"
                         value={password}
-                        onChange={({target}) => setPassword(target.value)}
+                        onChange={({target}) => {setPassword(target.value); handleFormValidation(target)}}
+                        // onBlur={({target}) => handleFormValidation(target)}
+                        helperText="Password must be at least 6 characters long and include at least one number."
 
                     />
                     </Grid>
                     <Grid item xs={12}>
                     <TextField
+                        // type="password"
+                        error={passwordMatchError}
                         variant="outlined"
                         required={true}
                         fullWidth
-                        id="password_confirm"
+                        id="passwordMatch"
                         label="Confirm Password"
-                        name="password_confirm"
-                    />
-                    <TextField
-                        error
-                        // id="outlined-error-helper-text"
-                        label="Passwords don't match"
-                        helperText="Incorrect entry."
-                        variant="outlined"
+                        name="passwordMatch"
+                        onChange={({target}) => {setPasswordMatch(target.value); handleFormValidation(target)}}
+                        helperText="Passwords must match."
                     />
                     </Grid>
 
                 </Grid>
                 <Button
-                    type="submit"
+                    // type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"
                     className={classes.submit}
+                    onClick={() => addAccount()}
                 >
                     Sign Up
                 </Button>
