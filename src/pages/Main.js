@@ -1,16 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import '../styling/main.css';
+import {isLoggedIn, logout} from '../config/auth';
+
 import ItemThumbnail from '../components/ItemThumbnail';
 import ItemPage from '../components/ItemPage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
 import InventoryManagement from '../pages/InventoryManagement';
 
+
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    Redirect
   } from "react-router-dom";
 
 
@@ -19,6 +23,7 @@ const Main = () => {
 
 const [inventory, setInventory] = useState([]);
 const [error, setError] = useState(false);
+const [open, setOpen] = useState(false);
 
 async function getInventory(){
     const response = await fetch('http://localhost:5100/api/inventory');
@@ -35,25 +40,30 @@ const item = inventory.map((item) => {
     return <ItemThumbnail item={item} />;
 });
 
-// const PrivateRoute = ({ children, ...rest }) => {
-//     return (
-//       <Route
-//         {...rest}
-//         render={({ location }) =>
-//           isLoggedIn() ? (
-//             children
-//           ) : (
-//               <Redirect
-//                 to={{
-//                   pathname: "/",
-//                   state: { from: location }
-//                 }}
-//               />
-//             )
-//         }
-//       />
-//     );
-//   }
+const handleLogout = () => {
+    logout();
+    setOpen(open);
+}
+
+const PrivateRoute = ({ children, ...rest }) => {
+    return (
+      <Route
+        {...rest}
+        render={({ location }) =>
+          isLoggedIn() ? (
+            children
+          ) : (
+              <Redirect
+                to={{
+                  pathname: "/",
+                  state: { from: location }
+                }}
+              />
+            )
+        }
+      />
+    );
+  }
 
 
     return (
@@ -74,6 +84,13 @@ const item = inventory.map((item) => {
                         </li>
                         <li>
                             <Link to="/inventory">Manage Inventory</Link>
+                        </li>
+                        <li>
+                        { isLoggedIn() ? 
+                            <p onClick={handleLogout}>
+                                Logout
+                            </p> 
+                        : ''}
                         </li>
                     </ul>
 
@@ -96,15 +113,16 @@ const item = inventory.map((item) => {
                             <SignUp />
                         </Route>
 
-                        <Route exact path="/inventory">
+                        {/* <Route exact path="/inventory">
                             <InventoryManagement inventory={inventory} getInventory={getInventory}/>
-                        </Route>
-                        {/* <PrivateRoute exact path="/inventory">
+                        </Route> */}
+                        <PrivateRoute exact path="/inventory">
                             <InventoryManagement inventory={inventory} getInventory={getInventory}/>
-                        </PrivateRoute> */}
+                        </PrivateRoute>
                     </Switch>
                 </Router>
 
+                        
         </div>
         
     )
