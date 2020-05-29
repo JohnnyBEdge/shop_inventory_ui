@@ -26,6 +26,9 @@ const InventoryManagement = (props) => {
         },
         quantityCell: {
             width: 20
+        },
+        tableHeader: {
+            fontWeight: 'bold'
         }
       });
     
@@ -38,14 +41,14 @@ const InventoryManagement = (props) => {
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                     <TableRow>
-                        <TableCell padding="checkbox" align="left">
+                        <TableCell padding="checkbox" align="left" className={classes.tableHeader}>
                             <Checkbox/>
                             Item
                         </TableCell>
-                        <TableCell align="right">Quantity</TableCell>
-                        <TableCell align="right">Price</TableCell>
-                        <TableCell align="left">Description</TableCell>
-                        <TableCell align="left">Edit</TableCell>
+                        <TableCell align="right" className={classes.tableHeader}>Quantity</TableCell>
+                        <TableCell align="right" className={classes.tableHeader}>Price</TableCell>
+                        <TableCell align="left" className={classes.tableHeader}>Description</TableCell>
+                        <TableCell align="left" className={classes.tableHeader}>Edit</TableCell>
                         {/* <TableCell align="right">isActive</TableCell> */}
                     </TableRow>
                     </TableHead>
