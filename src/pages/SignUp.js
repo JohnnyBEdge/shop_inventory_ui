@@ -30,14 +30,11 @@ const SignUp = () => {
     const emailRegex = RegExp(
         /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
       );
-
 	
     //   Password must contain at least one letter, at least one number, and be longer than six charaters.
     const passwordRegex = RegExp(
         /^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/
     );
-
-
 
     const handleFormValidation = (e) => {
         const {name, value} = e;
@@ -57,8 +54,8 @@ const SignUp = () => {
             case "passwordMatch":
                 value.match(password) ? setPasswordMatchError(false) : setPasswordMatchError(true);
                 break;    
-        }
-    }
+        };
+    };
 
 
     const addAccount = () => {
@@ -70,17 +67,18 @@ const SignUp = () => {
             && passwordMatchError === false){
                 console.log("valid form")
             } else {
-                console.log("invalid form")
+                alert("Invalid form, check your information.")
             };
 
-
-        // fetch(`http://localhost:5100/api/accounts`, {
-        //     method: "POST",
-        //     header: {
-        //         "Content-Type" : "application/json"
-        //     },
-        //     body: JSON.stringify({fname, lname, email, password})
-        // }).then(() => {setFname(''); setLname(''); setEmail(''), setPassword('')})
+        fetch(`http://localhost:5100/api/accounts/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({fname, lname, email, password})
+        })
+        .then(() => {setFname(''); setLname(''); setEmail(''); setPassword(''); setPasswordMatch('')})
+        //redirect to another page, user shopping cart or admin
     };
 
     const useStyles = makeStyles((theme) => ({
@@ -169,7 +167,7 @@ const SignUp = () => {
                     <TextField
                         variant="outlined"
                         error={passwordError}
-                        // type="password"
+                        type="password"
                         required
                         fullWidth
                         id="password"
@@ -177,14 +175,13 @@ const SignUp = () => {
                         name="password"
                         value={password}
                         onChange={({target}) => {setPassword(target.value); handleFormValidation(target)}}
-                        // onBlur={({target}) => handleFormValidation(target)}
                         helperText="Password must be at least 6 characters long and include at least one number."
 
                     />
                     </Grid>
                     <Grid item xs={12}>
                     <TextField
-                        // type="password"
+                        type="password"
                         error={passwordMatchError}
                         variant="outlined"
                         required={true}
@@ -194,6 +191,7 @@ const SignUp = () => {
                         name="passwordMatch"
                         onChange={({target}) => {setPasswordMatch(target.value); handleFormValidation(target)}}
                         helperText="Passwords must match."
+                        value={passwordMatch}
                     />
                     </Grid>
 

@@ -33,7 +33,27 @@ useEffect(() => {
     
 const item = inventory.map((item) => {
     return <ItemThumbnail item={item} />;
-})
+});
+
+// const PrivateRoute = ({ children, ...rest }) => {
+//     return (
+//       <Route
+//         {...rest}
+//         render={({ location }) =>
+//           isLoggedIn() ? (
+//             children
+//           ) : (
+//               <Redirect
+//                 to={{
+//                   pathname: "/",
+//                   state: { from: location }
+//                 }}
+//               />
+//             )
+//         }
+//       />
+//     );
+//   }
 
 
     return (
@@ -76,9 +96,12 @@ const item = inventory.map((item) => {
                             <SignUp />
                         </Route>
 
-                        <Route path="/inventory">
+                        <Route exact path="/inventory">
                             <InventoryManagement inventory={inventory} getInventory={getInventory}/>
                         </Route>
+                        {/* <PrivateRoute exact path="/inventory">
+                            <InventoryManagement inventory={inventory} getInventory={getInventory}/>
+                        </PrivateRoute> */}
                     </Switch>
                 </Router>
 

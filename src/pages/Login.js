@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { setToken } from '../../src/config/auth';
 import '../styling/login.css';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -16,6 +17,37 @@ import Container from '@material-ui/core/Container';
 
 const Login = () => {
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [remember, setRemember] = useState(false);
+    const [msg, setMsg] = useState('');
+
+    const toggle = () => {
+        setRemember(!remember);
+    }
+
+    const handleLogin = (event) => {
+        setMsg('');
+        if(remember){
+            localStorage.setItem('email', email);
+        } else {
+            localStorage.removeItem('email');
+        }
+        fetch(`http://localhost:5100/api/accounts/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        }).then(response => {
+            if(response.status === 200) {
+                setToken(response.headers.get('authentication'));
+                alert('Logged In!');
+            } else{
+                setMsg('Login Failed');
+            }
+        })
+    }
 
 
     const useStyles = makeStyles((theme) => ({
@@ -36,7 +68,20 @@ const Login = () => {
         submit: {
           margin: theme.spacing(3, 0, 2),
         },
+        msg: {
+            color: "red",
+            fontSize: "20px"
+        }
       }));
+
+      useEffect(() => {
+        const localEmail = localStorage.getItem('email');
+        if(localEmail){
+            setEmail(localEmail);
+            setRemember(true);
+        }
+    }, [])
+
 
       const classes = useStyles();
 
@@ -51,6 +96,7 @@ const Login = () => {
                 <Typography component="h1" variant="h5">
                 Sign in
                 </Typography>
+                <span className={classes.msg}>{msg}</span>
                 <form className={classes.form} noValidate>
                     <TextField
                         variant="outlined"
@@ -62,6 +108,8 @@ const Login = () => {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        value={email}
+                        onChange={({ target }) => setEmail(target.value)}
                     />
                     <TextField
                         variant="outlined"
@@ -73,19 +121,24 @@ const Login = () => {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        value={password}
+                        onChange={({ target }) => setPassword(target.value)}
                     />
                     <FormControlLabel
-                        control={<Checkbox 
-                                    value="remember" 
-                                    color="primary" />}
+                        control={<Checkbox
+                                    name="remember" 
+                                    checked={remember} 
+                                    color="primary"
+                                    onChange={toggle} />}
                         label="Remember me"
                     />
+                    
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={() => handleLogin()}
                     >
                         Sign In
                     </Button>
