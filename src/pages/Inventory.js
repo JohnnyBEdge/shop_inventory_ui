@@ -3,16 +3,14 @@ import '../styling/main.css';
 import {isLoggedIn, logout} from '../config/auth';
 
 import ItemThumbnail from '../components/ItemThumbnail';
-import ItemPage from '../components/ItemPage';
-import Login from '../pages/Login';
-import SignUp from '../pages/SignUp';
-import InventoryManagement from '../pages/InventoryManagement';
+
 
 const Inventory = () => {
 
 const [inventory, setInventory] = useState([]);
 const [error, setError] = useState(false);
 const [open, setOpen] = useState(false);
+
 
 async function getInventory(){
     const response = await fetch('http://localhost:5100/api/inventory');

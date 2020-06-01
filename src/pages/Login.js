@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Redirect } from 'react-router-dom'
 
 const Login = () => {
 
@@ -21,6 +22,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [msg, setMsg] = useState('');
+
 
     const toggle = () => {
         setRemember(!remember);
@@ -43,6 +45,7 @@ const Login = () => {
             if(response.status === 200) {
                 setToken(response.headers.get('authentication'));
                 alert('Logged In!');
+               return <Redirect to="/inventory" />
             } else{
                 setMsg('Login Failed');
             }

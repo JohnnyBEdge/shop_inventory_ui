@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ItemPage from '../components/ItemPage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
 import InventoryManagement from '../pages/InventoryManagement';
 import Inventory from '../pages/Inventory';
 import Main from '../pages/Main';
+import {isLoggedIn, logout} from '../config/auth';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -38,26 +39,58 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+  const PrivateRoute = ({ children, ...rest }) => {
+    return (
+      <Route
+        {...rest}
+        render={({ location }) =>
+          isLoggedIn() ? (
+            children
+          ) : (
+              <Redirect
+                to={{
+                  pathname: "/",
+                  state: { from: location }
+                }}
+              />
+            )
+        }
+      />
+      )};
+
+
+
+
+
 const Nav = () => {
 
-  // const PrivateRoute = ({ children, ...rest }) => {
-  //   return (
-  //     <Route
-  //       {...rest}
-  //       render={({ location }) =>
-  //         isLoggedIn() ? (
-  //           children
-  //         ) : (
-  //             <Redirect
-  //               to={{
-  //                 pathname: "/",
-  //                 state: { from: location }
-  //               }}
-  //             />
-  //           )
-  //       }
-  //     />
-  //   );
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const setUser = () => {
+    if(isLoggedIn()){
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    };
+  };
+
+  const handleLogout = () => {
+    logout();
+  }
+
+  const status = () => {
+      if(loggedIn){
+        return <Button onClick={handleLogout}>Log out</Button>
+      } else {
+        return <Button color="inherit">
+                <Link to="login">Login</Link>
+              </Button>
+      };
+  };
+
+  useEffect(() => {
+    setUser();
+}, []);
 
     const classes = useStyles();
 
@@ -71,13 +104,11 @@ const Nav = () => {
                 <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              <Link to="/" >
+              <Link to="/" style={{ textDecoration: 'none' }}>
                 Shop Inventory
               </Link>
             </Typography>
-            <Button color="inherit">
-              <Link to="login">Login</Link>
-            </Button>
+              {status()}
             </Toolbar>
         </AppBar>
 
@@ -98,9 +129,14 @@ const Nav = () => {
               <SignUp />
           </Route>
 
-        {/* <PrivateRoute exact path="/inventory">
-            <InventoryManagement inventory={inventory} getInventory={getInventory}/>
-        </PrivateRoute> */}
+          {/* <Route path="/inventory">
+            <Inventory/>
+          </Route> */}
+
+        <PrivateRoute exact path="/inventory">
+            {/* <InventoryManagement inventory={inventory} getInventory={getInventory}/> */}
+            <Inventory />
+        </PrivateRoute>
           </Switch>
 
         </Router>
