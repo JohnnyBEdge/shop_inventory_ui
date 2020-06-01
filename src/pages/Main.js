@@ -1,130 +1,48 @@
-import React, {useState, useEffect} from 'react';
-import '../styling/main.css';
-import {isLoggedIn, logout} from '../config/auth';
+import React from 'react';
+import Login from './Login';
 
-import ItemThumbnail from '../components/ItemThumbnail';
-import ItemPage from '../components/ItemPage';
-import Login from '../pages/Login';
-import SignUp from '../pages/SignUp';
-import InventoryManagement from '../pages/InventoryManagement';
+import { makeStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
 
 
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    Redirect
-  } from "react-router-dom";
-
-
+const useStyles = makeStyles({
+    main: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    container: {
+        width: "50%",
+        border: "1px black solid",
+        height: "80vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "30px 50px"
+    },
+    signIn: {
+        border: "solid black 1px"
+    }
+});
 
 const Main = () => {
 
-const [inventory, setInventory] = useState([]);
-const [error, setError] = useState(false);
-const [open, setOpen] = useState(false);
-
-async function getInventory(){
-    const response = await fetch('http://localhost:5100/api/inventory');
-    response.json()
-        .then(response => setInventory(response))
-        .catch(err => setError());
-};
-
-useEffect(() => {
-    getInventory();
-}, []);
-    
-const item = inventory.map((item) => {
-    return <ItemThumbnail item={item} />;
-});
-
-const handleLogout = () => {
-    logout();
-    setOpen(open);
-}
-
-const PrivateRoute = ({ children, ...rest }) => {
-    return (
-      <Route
-        {...rest}
-        render={({ location }) =>
-          isLoggedIn() ? (
-            children
-          ) : (
-              <Redirect
-                to={{
-                  pathname: "/",
-                  state: { from: location }
-                }}
-              />
-            )
-        }
-      />
-    );
-  }
-
+      const classes = useStyles();
 
     return (
-        <div id="main_container">
-            <Router>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/item-page">Item Page</Link>
-                        </li>
-                        <li>
-                            <Link to="/login">Login Page</Link>
-                        </li>
-                        <li>
-                            <Link to="/sign-up">Sign Up</Link>
-                        </li>
-                        <li>
-                            <Link to="/inventory">Manage Inventory</Link>
-                        </li>
-                        <li>
-                        { isLoggedIn() ? 
-                            <p onClick={handleLogout}>
-                                Logout
-                            </p> 
-                        : ''}
-                        </li>
-                    </ul>
+        <div id="main_container" className={classes.main}>
+            <div id="ad_container" className={classes.container}>
 
-                    <Switch>
-                        <Route exact path="/">
-                            <div id="items_container">
-                                {item}
-                            </div> 
-                        </Route>
+            </div>
+            <div id="welcome_container" className={classes.container}>
+                <h1>Welcome</h1>
+                <p>Welcome to the members only shop where you can get the best deals on the latest gear.
+                     To view our inventory, please <Link href="login">login.</Link>If you do not have an 
+                     account, you can create one <Link href="sign-up">here!</Link></p>
+            </div>
 
-                        <Route path="/item-page">
-                            <ItemPage />
-                        </Route>
-
-                        <Route path="/login">
-                            <Login />
-                        </Route>
-
-                        <Route path="/sign-up">
-                            <SignUp />
-                        </Route>
-
-                        {/* <Route exact path="/inventory">
-                            <InventoryManagement inventory={inventory} getInventory={getInventory}/>
-                        </Route> */}
-                        <PrivateRoute exact path="/inventory">
-                            <InventoryManagement inventory={inventory} getInventory={getInventory}/>
-                        </PrivateRoute>
-                    </Switch>
-                </Router>
-
-                        
         </div>
-        
     )
 };
 
