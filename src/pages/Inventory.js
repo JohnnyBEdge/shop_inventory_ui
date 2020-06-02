@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import '../styling/main.css';
-import {isLoggedIn, logout} from '../config/auth';
+
 
 import ItemThumbnail from '../components/ItemThumbnail';
 
@@ -27,31 +27,6 @@ const item = inventory.map((item) => {
     return <ItemThumbnail item={item} />;
 });
 
-// const handleLogout = () => {
-//     logout();
-//     setOpen(open);
-// }
-
-// const PrivateRoute = ({ children, ...rest }) => {
-//     return (
-//       <Route
-//         {...rest}
-//         render={({ location }) =>
-//           isLoggedIn() ? (
-//             children
-//           ) : (
-//               <Redirect
-//                 to={{
-//                   pathname: "/",
-//                   state: { from: location }
-//                 }}
-//               />
-//             )
-//         }
-//       />
-//     );
-//   }
-
 
     return (
         <div id="inventory_container">
@@ -59,14 +34,7 @@ const item = inventory.map((item) => {
             <div id="items_container">
                 {item}
             </div> 
-            
-            {/* <li>
-            { isLoggedIn() ? 
-                <p onClick={handleLogout}>
-                    Logout
-                </p> 
-            : ''}
-            </li> */}
+        
                     
 
 

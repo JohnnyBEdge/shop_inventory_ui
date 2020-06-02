@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import ItemPage from '../components/ItemPage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
@@ -6,6 +6,7 @@ import InventoryManagement from '../pages/InventoryManagement';
 import Inventory from '../pages/Inventory';
 import Main from '../pages/Main';
 import {isLoggedIn, logout} from '../config/auth';
+
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -39,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+
+
   const PrivateRoute = ({ children, ...rest }) => {
     return (
       <Route
@@ -59,38 +62,19 @@ const useStyles = makeStyles((theme) => ({
       )};
 
 
-
-
-
 const Nav = () => {
-
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const setUser = () => {
-    if(isLoggedIn()){
-      setLoggedIn(true);
-    } else {
-      setLoggedIn(false);
-    };
-  };
 
   const handleLogout = () => {
     logout();
   }
 
-  const status = () => {
-      if(loggedIn){
-        return <Button onClick={handleLogout}>Log out</Button>
-      } else {
-        return <Button color="inherit">
-                <Link to="login">Login</Link>
-              </Button>
-      };
-  };
+  const status = (isLoggedIn() ?
+    <Button onClick={handleLogout}>Log out</Button>
+    : <Button color="inherit">
+      <Link to="login">Login</Link>
+    </Button>
+  )
 
-  useEffect(() => {
-    setUser();
-}, []);
 
     const classes = useStyles();
 
@@ -108,7 +92,7 @@ const Nav = () => {
                 Shop Inventory
               </Link>
             </Typography>
-              {status()}
+              {status}
             </Toolbar>
         </AppBar>
 
@@ -116,25 +100,21 @@ const Nav = () => {
       
         <Switch>
           <Route exact path="/" component={Main} />
+       
 
-          <Route path="/item-page">
+          <Route exact path="/item-page">
               <ItemPage />
           </Route>
 
-          <Route path="/login">
+          <Route exact path="/login">
               <Login />
           </Route>
 
-          <Route path="/sign-up">
+          <Route exact path="/sign-up">
               <SignUp />
           </Route>
 
-          {/* <Route path="/inventory">
-            <Inventory/>
-          </Route> */}
-
         <PrivateRoute exact path="/inventory">
-            {/* <InventoryManagement inventory={inventory} getInventory={getInventory}/> */}
             <Inventory />
         </PrivateRoute>
           </Switch>
