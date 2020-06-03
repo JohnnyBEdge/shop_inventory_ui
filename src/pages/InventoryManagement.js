@@ -186,7 +186,7 @@ const InventoryManagement = (props) => {
                         <TableCell align="right" className={classes.tableHeader}>Price</TableCell>
                         <TableCell align="left" className={classes.tableHeader}>Description</TableCell>
                         <TableCell align="left" className={classes.tableHeader}>Edit</TableCell>
-                        <TableCell align="right">isActive</TableCell>
+                        {/* <TableCell align="right">isActive</TableCell> */}
                     </TableRow>
                     </TableHead>
                     <TableBody>

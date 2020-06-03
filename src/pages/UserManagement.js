@@ -39,7 +39,7 @@ async function getUsers(){
             maxWidth: 300
         },
         itemCell: {
-            minWidth: 300
+            minWidth: 50
         },
         quantityCell: {
             width: 20
@@ -71,12 +71,13 @@ async function getUsers(){
                     <TableRow>
                         <TableCell padding="checkbox" align="left" className={classes.tableHeader}>
                             <Checkbox/>
-                            Users
+
                         </TableCell>
-                        <TableCell align="right" className={classes.tableHeader}>First Name</TableCell>
-                        <TableCell align="right" className={classes.tableHeader}>Last Name</TableCell>
+                        <TableCell align="left" className={classes.tableHeader}>First Name</TableCell>
+                        <TableCell align="left" className={classes.tableHeader}>Last Name</TableCell>
                         <TableCell align="left" className={classes.tableHeader}>Email</TableCell>
                         <TableCell align="left" className={classes.tableHeader}>isAdmin</TableCell>
+                        <TableCell align="left" className={classes.tableHeader}>Edit</TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -84,15 +85,19 @@ async function getUsers(){
                         <TableRow key={user._id}>
                         <TableCell component="th" scope="row" padding="checkbox" className={classes.itemCell}>
                             <Checkbox/>
-                            {user.fname}
                         </TableCell>
-                        <TableCell align="right" className={classes.itemCell}>{user.lname}</TableCell>
-                        <TableCell align="right">{user.email}</TableCell>
-                        <TableCell align="left" className={classes.descCell}>{user.isAdmin}</TableCell>
+                        <TableCell align="left" className={classes.itemCell}>{user.fname}</TableCell>
+                        <TableCell align="left">{user.lname}</TableCell>
+                        <TableCell align="left">{user.email}</TableCell>
+                        <TableCell align="left" className={classes.descCell}>
+                            {user.isAdmin ? 
+                                "yes"
+                                :"no"}
+                            </TableCell>
                         <TableCell align="left">
                             {/* <EditModal 
-                                inventory={item} 
-                                getInventory={props.getInventory} 
+                                user={user} 
+                                getUsers={getUsers} 
                                 /> */}
                         </TableCell>
                         </TableRow>
