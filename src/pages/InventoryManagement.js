@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import EditModal from '../components/EditModal';
 import AddModal from '../components/AddModal';
 
@@ -12,8 +12,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import {ItemContext} from '../context/item-context';
 
 const InventoryManagement = (props) => {
+
+    const inventory = useContext(ItemContext);
 
 // -----------------SORT--------------------------------------------
 // const [order, setOrder] = React.useState('asc');
@@ -160,7 +163,9 @@ const InventoryManagement = (props) => {
     return (
         <div id="inventory_container">
             <TableContainer component={Paper}>
-                <AddModal getInventory={props.getInventory}/>
+                <AddModal 
+                    getInventory={props.getInventory}
+                />
                 <Table className={classes.table} aria-label="simple table">
                     {/* <EnhancedTableHead
                         classes={classes}
@@ -185,7 +190,7 @@ const InventoryManagement = (props) => {
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {props.inventory.map((item) => (
+                    {inventory.map((item) => (
                         <TableRow key={item._id}>
                         <TableCell component="th" scope="row" padding="checkbox" className={classes.itemCell}>
                             <Checkbox/>
@@ -195,7 +200,10 @@ const InventoryManagement = (props) => {
                         <TableCell align="right">{item.price}</TableCell>
                         <TableCell align="left" className={classes.descCell}>{item.desc}</TableCell>
                         <TableCell align="left">
-                            <EditModal inventory={item} getInventory={props.getInventory} />
+                            <EditModal 
+                                inventory={item} 
+                                getInventory={props.getInventory} 
+                                />
                         </TableCell>
                         </TableRow>
                     ))}

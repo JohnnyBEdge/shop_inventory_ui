@@ -6,6 +6,7 @@ import InventoryManagement from '../pages/InventoryManagement';
 import Inventory from '../pages/Inventory';
 import Main from '../pages/Main';
 import {isLoggedIn, logout} from '../config/auth';
+import {ItemContext} from '../context/item-context';
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -63,6 +64,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Nav = () => {
+  const [inventory, setInventory] = useState([]);
+  const [error, setError] = useState(false);
+
+async function getInventory(){
+  const response = await fetch('http://localhost:5100/api/inventory');
+  response.json()
+      .then(response => setInventory(response))
+      .catch(err => setError());
+};
 
   const handleLogout = () => {
     logout();
@@ -75,11 +85,15 @@ const Nav = () => {
     </Button>
   )
 
+  useEffect(() => {
+    getInventory();
+}, []);
 
     const classes = useStyles();
 
     return (
       <div id="nav_container">
+ 
         <Router>
 
         <AppBar position="static" color="inherit">
@@ -96,29 +110,33 @@ const Nav = () => {
             </Toolbar>
         </AppBar>
 
-        
-      
-        <Switch>
-          <Route exact path="/" component={Main} />
-       
+          <ItemContext.Provider value={inventory}>
+            <Switch>
+              <Route exact path="/" component={Main} />
+    
+              <Route exact path="/item-page">
+                  <ItemPage />
+              </Route>
 
-          <Route exact path="/item-page">
-              <ItemPage />
-          </Route>
+              <Route exact path="/login">
+                  <Login />
+              </Route>
 
-          <Route exact path="/login">
-              <Login />
-          </Route>
+              <Route exact path="/sign-up">
+                  <SignUp />
+              </Route>
 
-          <Route exact path="/sign-up">
-              <SignUp />
-          </Route>
+              <PrivateRoute exact path="/inventory">
+                  <Inventory />
+              </PrivateRoute>
 
-        <PrivateRoute exact path="/inventory">
-            <Inventory />
-        </PrivateRoute>
-          </Switch>
+              <PrivateRoute exact path="/inventory-management">
+                  <InventoryManagement getInventory={getInventory}/>
+              </PrivateRoute>
 
+            </Switch>
+
+          </ItemContext.Provider>
         </Router>
       </div>
     )
