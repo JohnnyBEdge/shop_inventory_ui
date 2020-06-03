@@ -1,5 +1,6 @@
 import React from 'react';
 import InventoryManagement from '../pages/InventoryManagement';
+import UserManagement from '../pages/UserManagement';
 
 
 import PropTypes from 'prop-types';
@@ -23,7 +24,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <Typography component={'span'} >{children}</Typography>
         </Box>
       )}
     </div>
@@ -64,7 +65,7 @@ export default function Admin() {
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Inventory" {...a11yProps(0)} />
           <Tab label="Users" {...a11yProps(1)} />
-          {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
+
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -73,10 +74,9 @@ export default function Admin() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         Users
+        <UserManagement />
       </TabPanel>
-      {/* <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel> */}
+
     </div>
   );
 }
