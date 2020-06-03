@@ -5,6 +5,7 @@ import SignUp from '../pages/SignUp';
 import InventoryManagement from '../pages/InventoryManagement';
 import Inventory from '../pages/Inventory';
 import Main from '../pages/Main';
+import Admin from '../pages/Admin';
 import {isLoggedIn, logout} from '../config/auth';
 import {ItemContext} from '../context/item-context';
 
@@ -130,8 +131,12 @@ async function getInventory(){
                   <Inventory />
               </PrivateRoute>
 
-              <PrivateRoute exact path="/inventory-management">
+              {/* <PrivateRoute exact path="/inventory-management">
                   <InventoryManagement getInventory={getInventory}/>
+              </PrivateRoute> */}
+
+              <PrivateRoute exact path="/admin">
+                  <Admin />
               </PrivateRoute>
 
             </Switch>
