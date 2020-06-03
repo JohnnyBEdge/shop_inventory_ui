@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, Component} from 'react';
 import ItemPage from '../components/ItemPage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
@@ -42,7 +42,13 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-
+// const MemberRoute = ({component: Component, ...rest}) => (
+//   <Route {...rest} render={(props) => (
+//     isLoggedIn() ?
+//     <Component {...props} />
+//     : <Redirect to='/' />
+//   )} />
+// )
 
   const PrivateRoute = ({ children, ...rest }) => {
     return (
@@ -115,27 +121,23 @@ async function getInventory(){
             <Switch>
               <Route exact path="/" component={Main} />
     
-              <Route exact path="/item-page">
+              <Route exact path="/item-page" component={ItemPage}>
                   <ItemPage />
               </Route>
 
-              <Route exact path="/login">
+              <Route exact path="/login" component={Login}>
                   <Login />
               </Route>
 
-              <Route exact path="/sign-up">
+              <Route exact path="/sign-up" component={SignUp}>
                   <SignUp />
               </Route>
 
-              <PrivateRoute exact path="/inventory">
+              <PrivateRoute exact path="/inventory" component={Inventory}>
                   <Inventory />
               </PrivateRoute>
 
-              {/* <PrivateRoute exact path="/inventory-management">
-                  <InventoryManagement getInventory={getInventory}/>
-              </PrivateRoute> */}
-
-              <PrivateRoute exact path="/admin">
+              <PrivateRoute exact path="/admin" component={Admin}>
                   <Admin />
               </PrivateRoute>
 

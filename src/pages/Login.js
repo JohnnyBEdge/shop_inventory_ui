@@ -10,7 +10,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -98,12 +99,10 @@ const Login = (props) => {
 
       const classes = useStyles();
 
-        // const redirectAfterLogin = (isLoggedIn() ? 
-        // <Redirect to={{
-        //         pathname: "/inventory",
-        //         state: { from: "/" }}} />
+        // const redirectAfterLogin = (isLoggedIn ? 
+        //     return <Redirect to="/inventory" />
                  
-        // : <Route exact path="/" component={Main} />
+        // : return <Route exact path="/" component={Main} />
         // )
 
 
@@ -171,12 +170,12 @@ const Login = (props) => {
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                        <Link href="#" variant="body2">
+                        <Link variant="body2">
                             Forgot password?
                         </Link>
                         </Grid>
                         <Grid item>
-                        <Link href="/sign-up" variant="body2">
+                        <Link to="/sign-up" variant="body2">
                             {"Don't have an account? Sign Up"}
                         </Link>
                         </Grid>
