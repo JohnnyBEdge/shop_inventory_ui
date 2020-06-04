@@ -6,7 +6,7 @@ import InventoryManagement from '../pages/InventoryManagement';
 import Inventory from '../pages/Inventory';
 import Main from '../pages/Main';
 import Admin from '../pages/Admin';
-import {isLoggedIn, logout} from '../config/auth';
+import {isLoggedIn, logout, isUserAdmin} from '../config/auth';
 import {ItemContext} from '../context/item-context';
 
 
@@ -42,34 +42,71 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-// const MemberRoute = ({component: Component, ...rest}) => (
-//   <Route {...rest} render={(props) => (
-//     isLoggedIn() ?
-//     <Component {...props} />
-//     : <Redirect to='/' />
-//   )} />
-// )
+  // const PrivateRoute = ({ children, ...rest }) => {
+  //   return (
+  //     <Route
+  //       {...rest}
+  //       render={({ location }) =>
+  //         isLoggedIn() ? (
+  //           children
+  //         ) : (
+  //           <Redirect to='/login' />
+  //             // <Redirect
+  //             //   to={{
+  //             //     pathname: "/",
+  //             //     state: { from: location }
+  //             //   }}
+  //             // />
+  //           )
+  //       }
+  //     />
+  //     )};
 
-  const PrivateRoute = ({ children, ...rest }) => {
+  // const AdminRoute = ({children, ...rest}) => {
+  //   const admin = isLoggedIn() && isUserAdmin() === true;
+  //   console.log("admin ", admin)
+  //   return (
+  //     <Route
+  //       {...rest}
+  //       render={({location}) =>
+  //       admin ? (
+  //         children
+  //       ) : (
+  //         <Redirect to='/' />
+  //         // <Redirect
+  //         //   to={{
+  //         //     pathname: "/",
+  //         //     state: {from: location}
+  //         //   }}
+  //         // />
+  //       )}
+  //       />
+  //   )};
+
+  const PrivateRoute = ({component: Component, restricted, ...rest}) => {
     return (
-      <Route
-        {...rest}
-        render={({ location }) =>
-          isLoggedIn() ? (
-            children
-          ) : (
-              <Redirect
-                to={{
-                  pathname: "/",
-                  state: { from: location }
-                }}
-              />
-            )
-        }
-      />
-      )};
+        <Route {...rest} render={props => 
+            // isLoggedIn() && restricted ?
+            isLoggedIn() ?
+            (<Component {...props} />)
+            : (<Redirect to="/inventory" />)
+        } />
+    );
+};
 
+  const AdminRoute = ({component: Component, ...rest}) => {
+    const admin = isLoggedIn() && isUserAdmin();
+    
+    return (
+          <Route {...rest} render={props => 
+            admin ?
+                (<Component {...props} />)
+            : (<Redirect to="/" />)
+        } />
+    );
+};
 
+  
 const Nav = () => {
   const [inventory, setInventory] = useState([]);
   const [error, setError] = useState(false);
@@ -90,7 +127,7 @@ async function getInventory(){
     : <Button color="inherit">
       <Link to="login">Login</Link>
     </Button>
-  )
+  );
 
   useEffect(() => {
     getInventory();
@@ -119,27 +156,14 @@ async function getInventory(){
 
           <ItemContext.Provider value={inventory}>
             <Switch>
-              <Route exact path="/" component={Main} />
+              <Route exact path="/" restricted={false} component={Main} />
     
-              <Route exact path="/item-page" component={ItemPage}>
-                  <ItemPage />
-              </Route>
+              <Route exact path="/item-page" restricted={true} component={ItemPage} />
+              <Route exact path="/login" restricted={true} component={Login} />
+              <Route exact path="/sign-up"  component={SignUp} />
 
-              <Route exact path="/login" component={Login}>
-                  <Login />
-              </Route>
-
-              <Route exact path="/sign-up" component={SignUp}>
-                  <SignUp />
-              </Route>
-
-              <PrivateRoute exact path="/inventory" component={Inventory}>
-                  <Inventory />
-              </PrivateRoute>
-
-              <PrivateRoute exact path="/admin" component={Admin}>
-                  <Admin />
-              </PrivateRoute>
+              <PrivateRoute exact path="/inventory" component={Inventory} />
+              <AdminRoute exact path="/admin" component={Admin} />
 
             </Switch>
 

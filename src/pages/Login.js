@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { setToken } from '../../src/config/auth';
-import {isLoggedIn} from '../config/auth';
+import { setToken, isLoggedIn } from '../config/auth';
+// import {isLoggedIn} from '../config/auth';
 import Main from '../pages/Main';
 import '../styling/login.css';
 
@@ -55,10 +55,6 @@ const Login = (props) => {
         })
     };
 
-    // const getUserAccount = () => {
-    //     fetch(`http://localhost:5100/api/accounts`)
-    // }
-
 
     const useStyles = makeStyles((theme) => ({
         paper: {
@@ -93,16 +89,12 @@ const Login = (props) => {
     }, [])
 
 
-      const classes = useStyles();
+    const classes = useStyles();
 
-        // const redirectAfterLogin = (isLoggedIn ? 
-        //     return <Redirect to="/inventory" />
-                 
-        // : return <Route exact path="/" component={Main} />
-        // )
-
-
-
+    // const redirectAfterLogin = ( isLoggedIn() ? 
+    //     <Redirect to="/inventory" />
+    //     : <Route to='/' />
+    // )
 
 
     return (

@@ -4,25 +4,22 @@ export const isLoggedIn = () => {
     return token;
 }
 
+//returns admin status
+export const isUserAdmin = () => {
+    const status = localStorage.getItem('isAdmin');
+    return status == "true";
+}
+
 //Removes the auth token
 export const logout = () => {
     localStorage.removeItem('auth');
+    localStorage.removeItem('isAdmin');
 }
 
-// Stores the Auth Token in LocalStorage
+// Stores the Auth Token and admin status in LocalStorage
 export const setToken = (token, adminStatus) => {
     localStorage.setItem('auth', token);
     localStorage.setItem('isAdmin', adminStatus);
 }
 
 
-
-export const setAdmin = (adminStatus) => {
-    localStorage.setItem("isAdmin", adminStatus)
-}
-
-//Stores admin status
-// export const isUserAdmin = () => {
-//     const email = localStorage.getItem('email');
-
-// }
