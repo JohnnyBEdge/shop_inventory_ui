@@ -12,3 +12,5 @@ export const logout = () => {
 export const setToken = (token) => {
     localStorage.setItem('auth', token);
 }
+
+//Stores 
