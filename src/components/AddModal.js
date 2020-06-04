@@ -15,6 +15,7 @@ const AddModal = (props) => {
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [desc, setDesc] = useState('');
+ 
 
     const addInventory = () => {
         fetch(`http://localhost:5100/api/inventory`, {

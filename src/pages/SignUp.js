@@ -21,6 +21,7 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordMatch, setPasswordMatch] = useState('');
+    const [isAdmin] =useState(false)
 
     const [fNameError, setFNameError] = useState(false);
     const [lNameError, setLNameError] = useState(false);
@@ -76,7 +77,7 @@ const SignUp = () => {
             headers: {
                 "Content-Type" : "application/json"
             },
-            body: JSON.stringify({fname, lname, email, password})
+            body: JSON.stringify({fname, lname, email, password, isAdmin})
         })
         .then(() => {setFname(''); setLname(''); setEmail(''); setPassword(''); setPasswordMatch('')})
 

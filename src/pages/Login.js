@@ -25,16 +25,7 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [msg, setMsg] = useState('');
-    // const [loggedIn, setLoggedIn] = useState(false);
-
-    // const setUser = () => {
-    //   if(isLoggedIn()){
-    //     setLoggedIn(true);
-    //   } else {
-    //     setLoggedIn(false);
-    //   };
-    // };
-
+    const [isAdmin, setIsAdmin] = useState(false)
 
     const toggle = () => {
         setRemember(!remember);
@@ -55,13 +46,18 @@ const Login = (props) => {
             body: JSON.stringify({ email, password })
         }).then(response => {
             if(response.status === 200) {
-                setToken(response.headers.get('authentication'));
+                setToken(response.headers.get('authentication'), response.headers.get('adminStatus'));
+                console.log("response: ", response)
                 // setLoggedIn(true)
             } else {
                 setMsg('Login Failed');
             }
         })
-    }
+    };
+
+    // const getUserAccount = () => {
+    //     fetch(`http://localhost:5100/api/accounts`)
+    // }
 
 
     const useStyles = makeStyles((theme) => ({
