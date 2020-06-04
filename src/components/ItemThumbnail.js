@@ -4,13 +4,10 @@ import '../styling/item-thumbnail.css';
 import Link from '@material-ui/core/Link';
 
 const ItemThumbNail = (props) => {
+
+    
     return (
-        // <Link href="/item-page">
-        // <Link 
-        //     to={{
-        //         pathname: "/item-page",
-        //         state: {itemInfo: {props}}
-        //         }}>
+
         <div className="thumbnail-container">
             <div className="img-container">
                 <img src={placeholder} alt="default img placeholder" />

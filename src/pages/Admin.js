@@ -69,11 +69,9 @@ export default function Admin() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        Inventory
         <InventoryManagement />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Users
         <UserManagement />
       </TabPanel>
 

@@ -5,13 +5,16 @@ import '../styling/main.css';
 
 import ItemThumbnail from '../components/ItemThumbnail';
 import Link from '@material-ui/core/Link';
+// import classes from '*.module.css';
+
 
 
 const Inventory = () => {
 
-// const [inventory, setInventory] = useState([]);
-// const [error, setError] = useState(false);
+
 const [open, setOpen] = useState(false);
+
+
 
 
 
@@ -25,11 +28,13 @@ const [open, setOpen] = useState(false);
 // useEffect(() => {
 //     getInventory();
 // }, []);
+
 const inventory = useContext(ItemContext);
     
 const item = inventory.map((item) => {
-    return <ItemThumbnail item={item} />
+    return <ItemThumbnail item={item}/>
 });
+
 
 
     return (

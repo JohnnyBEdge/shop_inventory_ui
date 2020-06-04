@@ -1,9 +1,9 @@
 #items_container {
     width: 80%;
     height: auto;
-    border: solid black 1px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
+    grid-gap: 15px;
+    margin-top: 30px;
 }
