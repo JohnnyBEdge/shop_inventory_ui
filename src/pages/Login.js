@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { setToken, isLoggedIn } from '../config/auth';
 // import {isLoggedIn} from '../config/auth';
 import Main from '../pages/Main';
+import {UserContext} from '../context/user-context';
 import '../styling/login.css';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -25,7 +26,9 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [msg, setMsg] = useState('');
-    const [isAdmin, setIsAdmin] = useState(false)
+    // const [isAdmin, setIsAdmin] = useState(false);
+    // const [redirect, setRedirect] = useState(false);
+
 
     const toggle = () => {
         setRemember(!remember);
@@ -47,8 +50,8 @@ const Login = (props) => {
         }).then(response => {
             if(response.status === 200) {
                 setToken(response.headers.get('authentication'), response.headers.get('adminStatus'));
-                console.log("response: ", response)
-                // setLoggedIn(true)
+                //you wont see this, but it triggers the rerender and redirect
+                setMsg("Success!")
             } else {
                 setMsg('Login Failed');
             }
@@ -91,15 +94,11 @@ const Login = (props) => {
 
     const classes = useStyles();
 
-    // const redirectAfterLogin = ( isLoggedIn() ? 
-    //     <Redirect to="/inventory" />
-    //     : <Route to='/' />
-    // )
-
+    const redirect = isLoggedIn();
 
     return (
         <div id="login_container">
-            {/* {redirectAfterLogin} */}
+            {redirect ? <Redirect to='/inventory' /> : ''}
 
             <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -158,7 +157,7 @@ const Login = (props) => {
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                        <Link variant="body2">
+                        <Link to="" variant="body2">
                             Forgot password?
                         </Link>
                         </Grid>

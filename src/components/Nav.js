@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext, Component} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import ItemPage from '../components/ItemPage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
@@ -8,6 +8,7 @@ import Main from '../pages/Main';
 import Admin from '../pages/Admin';
 import {isLoggedIn, logout, isUserAdmin} from '../config/auth';
 import {ItemContext} from '../context/item-context';
+import AvatarLink from '../components/AvatarLink';
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
 
@@ -25,8 +27,12 @@ import {
   Switch,
   Route,
   Link,
-  Redirect
+  Redirect,
+  withRouter,
+  useHistory
 } from "react-router-dom";
+import { UserContext } from '../context/user-context';
+import { Avatar } from '@material-ui/core';
 
 
 
@@ -42,46 +48,6 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-  // const PrivateRoute = ({ children, ...rest }) => {
-  //   return (
-  //     <Route
-  //       {...rest}
-  //       render={({ location }) =>
-  //         isLoggedIn() ? (
-  //           children
-  //         ) : (
-  //           <Redirect to='/login' />
-  //             // <Redirect
-  //             //   to={{
-  //             //     pathname: "/",
-  //             //     state: { from: location }
-  //             //   }}
-  //             // />
-  //           )
-  //       }
-  //     />
-  //     )};
-
-  // const AdminRoute = ({children, ...rest}) => {
-  //   const admin = isLoggedIn() && isUserAdmin() === true;
-  //   console.log("admin ", admin)
-  //   return (
-  //     <Route
-  //       {...rest}
-  //       render={({location}) =>
-  //       admin ? (
-  //         children
-  //       ) : (
-  //         <Redirect to='/' />
-  //         // <Redirect
-  //         //   to={{
-  //         //     pathname: "/",
-  //         //     state: {from: location}
-  //         //   }}
-  //         // />
-  //       )}
-  //       />
-  //   )};
 
   const PrivateRoute = ({component: Component, restricted, ...rest}) => {
     return (
@@ -110,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 const Nav = () => {
   const [inventory, setInventory] = useState([]);
   const [error, setError] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
 async function getInventory(){
   const response = await fetch('http://localhost:5100/api/inventory');
@@ -118,16 +85,37 @@ async function getInventory(){
       .catch(err => setError());
 };
 
-  const handleLogout = () => {
-    logout();
-  }
 
-  const status = (isLoggedIn() ?
-    <Button onClick={handleLogout}>Log out</Button>
-    : <Button color="inherit">
-      <Link to="login">Login</Link>
-    </Button>
-  );
+  // const handleLogout = () => {
+  //   logout();
+  //   // history.push('/');
+  // }
+
+  // const status = (isLoggedIn() ?
+  //   <Button onClick={handleLogout}>Log out</Button>
+  //   : <Button color="inherit">
+  //     <Link to="login">Login</Link>
+  //   </Button>
+  // );
+  
+
+
+  const AuthButton = withRouter(({history}) => (
+    isLoggedIn() ? (
+      
+      
+        <AvatarLink onClick={setRedirect(false)}/>
+      
+      // <p>
+      //   Welcome! 
+      //   <Button onClick={() => {
+      //     logout(); setRedirect(false);
+      //   }}> Sign Out</Button>
+      // </p>
+    ) : (
+      <p>You are not logged in</p>
+    )
+  ))
 
   useEffect(() => {
     getInventory();
@@ -135,11 +123,15 @@ async function getInventory(){
 
     const classes = useStyles();
 
+    const returnHome = !isLoggedIn();
+    console.log("ret", returnHome)
+
+
     return (
       <div id="nav_container">
  
         <Router>
-
+        {returnHome ? <Redirect to='/login' /> : ''}
         <AppBar position="static" color="inherit">
             <Toolbar>
             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -150,11 +142,12 @@ async function getInventory(){
                 Shop Inventory
               </Link>
             </Typography>
-              {status}
+              {/* {status} */}
+              <AuthButton />
             </Toolbar>
         </AppBar>
-
-          <ItemContext.Provider value={inventory}>
+          <UserContext.Provider redirect={redirect} >
+          <ItemContext.Provider value={inventory} >
             <Switch>
               <Route exact path="/" restricted={false} component={Main} />
     
@@ -168,6 +161,7 @@ async function getInventory(){
             </Switch>
 
           </ItemContext.Provider>
+          </UserContext.Provider>
         </Router>
       </div>
     )
