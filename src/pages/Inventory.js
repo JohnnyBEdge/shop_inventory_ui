@@ -9,30 +9,22 @@ import Link from '@material-ui/core/Link';
 
 
 
+
 const Inventory = () => {
-
-
 const [open, setOpen] = useState(false);
-
-
-
-
-
-// async function getInventory(){
-//     const response = await fetch('http://localhost:5100/api/inventory');
-//     response.json()
-//         .then(response => setInventory(response))
-//         .catch(err => setError());
-// };
-
-// useEffect(() => {
-//     getInventory();
-// }, []);
+// const [selected, setSelected] = useState('')
 
 const inventory = useContext(ItemContext);
+
+const handleSelected = (item) => {
+    localStorage.setItem('selected', JSON.stringify(item))
+}
     
 const item = inventory.map((item) => {
-    return <ItemThumbnail item={item}/>
+    return <Link to="/item-page" onClick={() => handleSelected(item)}>
+            <ItemThumbnail item={item}/>
+        </Link>
+
 });
 
 

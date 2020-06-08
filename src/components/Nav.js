@@ -78,40 +78,16 @@ const Nav = () => {
   const [error, setError] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
-async function getInventory(){
-  const response = await fetch('http://localhost:5100/api/inventory');
-  response.json()
-      .then(response => setInventory(response))
-      .catch(err => setError());
-};
-
-
-  // const handleLogout = () => {
-  //   logout();
-  //   // history.push('/');
-  // }
-
-  // const status = (isLoggedIn() ?
-  //   <Button onClick={handleLogout}>Log out</Button>
-  //   : <Button color="inherit">
-  //     <Link to="login">Login</Link>
-  //   </Button>
-  // );
-  
-
+  async function getInventory(){
+    const response = await fetch('http://localhost:5100/api/inventory');
+    response.json()
+        .then(response => setInventory(response))
+        .catch(err => setError());
+  };
 
   const AuthButton = withRouter(({history}) => (
-    isLoggedIn() ? (
-      
-      
+    isLoggedIn() ? (  
         <AvatarLink onClick={setRedirect(false)}/>
-      
-      // <p>
-      //   Welcome! 
-      //   <Button onClick={() => {
-      //     logout(); setRedirect(false);
-      //   }}> Sign Out</Button>
-      // </p>
     ) : (
       <p>You are not logged in</p>
     )
@@ -126,12 +102,24 @@ async function getInventory(){
     const returnHome = !isLoggedIn();
     console.log("ret", returnHome)
 
+    // const secondaryNav = !isLoggedIn() ? 
+    //   <AppBar position="static" color="inherit">
+    //     <Toolbar>
+    //       <Typography variant="h6" className={classes.title}>
+    //         <Link to="/inventory" style={{ textDecoration: 'none' }}>
+    //           Inventory
+    //         </Link>
+    //       </Typography>
+    //     </Toolbar>
+    //   </AppBar>
+    //   : '';
+
 
     return (
       <div id="nav_container">
  
         <Router>
-        {returnHome ? <Redirect to='/login' /> : ''}
+        {/* {returnHome ? <Redirect to='/login' /> : ''} */}
         <AppBar position="static" color="inherit">
             <Toolbar>
             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -146,6 +134,8 @@ async function getInventory(){
               <AuthButton />
             </Toolbar>
         </AppBar>
+        {/* {secondaryNav} */}
+        
           <UserContext.Provider redirect={redirect} >
           <ItemContext.Provider value={inventory} >
             <Switch>
