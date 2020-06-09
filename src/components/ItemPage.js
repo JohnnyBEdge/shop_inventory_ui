@@ -14,14 +14,13 @@ const ItemPage = () => {
                 <div className="image-carousel">
                     <img src={placeholder} alt="default img placeholder" />
                 </div>
-                <p className="item-desc">{selectedItem[0].desc}</p>
+                <p className="item-desc">{selectedItem.desc}</p>
             </div>
 
             <div className="right-item-content">
-                <p className="item-name">{selectedItem[0].name}</p>
-                <p className="item-price">{selectedItem[0].price}</p>
-                <p className="item-price">{selectedItem[0].colors}</p>
-                <p className="item-quantity">{selectedItem[0].quantity}</p>
+                <p className="item-name">{selectedItem.name}</p>
+                <p className="item-price">{selectedItem.price}</p>
+                <p className="item-quantity">{selectedItem.quantity}</p>
                 <Button
                     variant="contained"
                     color="primary"

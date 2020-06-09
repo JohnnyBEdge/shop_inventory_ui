@@ -14,12 +14,14 @@ export const isUserAdmin = () => {
 export const logout = () => {
     localStorage.removeItem('auth');
     localStorage.removeItem('isAdmin');
+    // localStorage.removeItem('user')
 }
 
 // Stores the Auth Token and admin status in LocalStorage
 export const setToken = (token, adminStatus) => {
     localStorage.setItem('auth', token);
     localStorage.setItem('isAdmin', adminStatus);
+    // localStorage.setItem('user', user);
 }
 
 

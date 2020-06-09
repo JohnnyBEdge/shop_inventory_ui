@@ -29,6 +29,8 @@ const Login = (props) => {
     // const [isAdmin, setIsAdmin] = useState(false);
     // const [redirect, setRedirect] = useState(false);
 
+    const mess = useContext(UserContext)
+
 
     const toggle = () => {
         setRemember(!remember);
@@ -49,7 +51,9 @@ const Login = (props) => {
             body: JSON.stringify({ email, password })
         }).then(response => {
             if(response.status === 200) {
-                setToken(response.headers.get('authentication'), response.headers.get('adminStatus'));
+                setToken(response.headers.get('authentication'), 
+                        response.headers.get('adminStatus'),
+                        response.headers.get('user'));
                 //you wont see this, but it triggers the rerender and redirect
                 setMsg("Success!")
             } else {
@@ -98,6 +102,7 @@ const Login = (props) => {
 
     return (
         <div id="login_container">
+            <p>{mess}</p>
             {redirect ? <Redirect to='/inventory' /> : ''}
 
             <Container component="main" maxWidth="xs">

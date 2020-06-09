@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import EditModal from '../components/EditModal';
 import AddModal from '../components/AddModal';
 
@@ -18,9 +18,7 @@ import orderBy from 'lodash/orderBy';
 const InventoryManagement = (props) => {
 
     const inventory = useContext(ItemContext);
-
-    const [sortList, setSortList] = useState(inventory);
-    const [direction, setDirection] = useState('asc');
+    console.log("inv ",inventory)
 
     const toggleDirection = () => {
         if(direction === "asc"){
@@ -29,6 +27,11 @@ const InventoryManagement = (props) => {
             setDirection("asc")
         };
     };
+
+    const [sortList, setSortList] = useState(inventory);
+    const [direction, setDirection] = useState('asc');
+
+ 
 
     const sortNames =() => {
         const sorted = orderBy(inventory, [item => item.name.toLowerCase()], direction);
@@ -62,6 +65,14 @@ const InventoryManagement = (props) => {
       });
     
     const classes = useStyles();
+
+    // useEffect(() => {
+    //     if(sortList == []){
+    //         setSortList(inventory)
+    //     }
+    // }, [])
+
+    console.log("sortlist ", sortList)
 
     return (
         <div id="inventory_container">

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useMemo} from 'react';
 import ItemPage from '../components/ItemPage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
@@ -6,6 +6,7 @@ import InventoryManagement from '../pages/InventoryManagement';
 import Inventory from '../pages/Inventory';
 import Main from '../pages/Main';
 import Admin from '../pages/Admin';
+import Cart from '../pages/Cart';
 import {isLoggedIn, logout, isUserAdmin} from '../config/auth';
 import {ItemContext} from '../context/item-context';
 import AvatarLink from '../components/AvatarLink';
@@ -19,6 +20,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 
 
 
@@ -48,6 +50,8 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+  
+
 
   const PrivateRoute = ({component: Component, restricted, ...rest}) => {
     return (
@@ -76,7 +80,10 @@ const useStyles = makeStyles((theme) => ({
 const Nav = () => {
   const [inventory, setInventory] = useState([]);
   const [error, setError] = useState(false);
-  const [redirect, setRedirect] = useState(false);
+  const [loginStatus, setLoginStatus] = useState('');
+
+
+  // const providerValue = useMemo(() => ({ status, setStatus}), [status, setStatus])
 
   async function getInventory(){
     const response = await fetch('http://localhost:5100/api/inventory');
@@ -85,22 +92,22 @@ const Nav = () => {
         .catch(err => setError());
   };
 
-  const AuthButton = withRouter(({history}) => (
-    isLoggedIn() ? (  
-        <AvatarLink onClick={setRedirect(false)}/>
-    ) : (
-      <p>You are not logged in</p>
-    )
-  ))
+  const handleStatus = () => {
+    isLoggedIn() ? 
+    setLoginStatus(true)
+    : setLoginStatus(false)
+  }
+
 
   useEffect(() => {
     getInventory();
+    handleStatus();
 }, []);
 
     const classes = useStyles();
-
-    const returnHome = !isLoggedIn();
-    console.log("ret", returnHome)
+console.log("status from nav ", loginStatus)
+    // const returnHome = !isLoggedIn();
+    // console.log("ret", returnHome)
 
     // const secondaryNav = !isLoggedIn() ? 
     //   <AppBar position="static" color="inherit">
@@ -131,12 +138,16 @@ const Nav = () => {
               </Link>
             </Typography>
               {/* {status} */}
-              <AuthButton />
+              {/* <AuthButton /> */}
+              <span>
+              <AvatarLink />
+              <Link to="/cart"><ShoppingCartOutlinedIcon /></Link>
+              </span>
             </Toolbar>
         </AppBar>
         {/* {secondaryNav} */}
         
-          <UserContext.Provider redirect={redirect} >
+        {/* <UserContext.Provider value={loginStatus, setLoginStatus} > */}
           <ItemContext.Provider value={inventory} >
             <Switch>
               <Route exact path="/" restricted={false} component={Main} />
@@ -144,6 +155,7 @@ const Nav = () => {
               <Route exact path="/item-page" restricted={true} component={ItemPage} />
               <Route exact path="/login" restricted={true} component={Login} />
               <Route exact path="/sign-up"  component={SignUp} />
+              <Route exact path="/cart" component={Cart} />
 
               <PrivateRoute exact path="/inventory" component={Inventory} />
               <AdminRoute exact path="/admin" component={Admin} />
@@ -151,7 +163,7 @@ const Nav = () => {
             </Switch>
 
           </ItemContext.Provider>
-          </UserContext.Provider>
+          {/* </UserContext.Provider> */}
         </Router>
       </div>
     )

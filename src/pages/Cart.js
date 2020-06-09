@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   });
   
 function ccyFormat(num) {
-return `${num.toFixed(2)}`;
+// return `${num.toFixed(2)}`;
 }
 
 function priceRow(qty, unit) {
@@ -32,26 +32,31 @@ return { desc, qty, unit, price };
 }
 
 function subtotal(items) {
-return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+// return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
 }
 
-const invoiceSubtotal = subtotal(rows);
+const invoiceSubtotal = subtotal("rows");
 const invoiceTaxes = TAX_RATE * invoiceSubtotal;
 const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
 
 
 const Cart = () => {
+    const classes = useStyles();
     return (
         <div id="cart_container">
             <h2>Your Cart</h2>
             <Button>Proceed With Order</Button>
 
             <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="spanning table">
+                <Table 
+                    className={classes.table} 
+                    aria-label="spanning table">
                     <TableHead>
                     <TableRow>
-                        <TableCell align="center" colSpan={3}>
+                        <TableCell 
+                            align="center" 
+                            colSpan={3}>
                         Order Summary
                         </TableCell>
                         <TableCell align="right">Price</TableCell>
@@ -64,14 +69,14 @@ const Cart = () => {
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {rows.map((row) => (
+                    {/* {rows.map((row) => (
                         <TableRow key={row.desc}>
                         <TableCell>{row.desc}</TableCell>
                         <TableCell align="right">{row.qty}</TableCell>
                         <TableCell align="right">{row.unit}</TableCell>
                         <TableCell align="right">{ccyFormat(row.price)}</TableCell>
                         </TableRow>
-                    ))}
+                    ))} */}
 
                     <TableRow>
                         <TableCell rowSpan={3} />

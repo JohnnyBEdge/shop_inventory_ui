@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import InventoryManagement from '../pages/InventoryManagement';
 import UserManagement from '../pages/UserManagement';
 
@@ -58,6 +58,10 @@ export default function Admin() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  
+
+
 
   return (
     <div className={classes.root}>
