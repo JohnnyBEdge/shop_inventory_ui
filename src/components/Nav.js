@@ -127,6 +127,8 @@ const PrivateRoute = ({component: Component, restricted, ...rest}) => {
 
     return (
       <div id="nav_container">
+        <UserContext.Provider value={user} >
+          <ItemContext.Provider value={inventory} >
  
         <Router>
         {/* {returnHome ? <Redirect to='/login' /> : ''} */}
@@ -144,14 +146,13 @@ const PrivateRoute = ({component: Component, restricted, ...rest}) => {
               {/* <AuthButton /> */}
               <span>
               <AvatarLink />
-              <Link to="/cart"><ShoppingCartOutlinedIcon /></Link>
+              {/* <Link to="/cart"><ShoppingCartOutlinedIcon /></Link> */}
               </span>
             </Toolbar>
         </AppBar>
         {/* {secondaryNav} */}
         
-        <UserContext.Provider value={user} >
-          <ItemContext.Provider value={inventory} >
+
             <Switch>
               <Route exact path="/" restricted={false} component={Main} />
     
@@ -165,9 +166,10 @@ const PrivateRoute = ({component: Component, restricted, ...rest}) => {
 
             </Switch>
 
-          </ItemContext.Provider>
-          </UserContext.Provider>
-        </Router>
+
+          </Router>
+        </ItemContext.Provider>
+      </UserContext.Provider>
       </div>
     )
 };

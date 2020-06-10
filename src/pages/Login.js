@@ -26,11 +26,6 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [msg, setMsg] = useState('');
-    // const [user, setUser] = useState(null)
-    // const [redirect, setRedirect] = useState(false);
-
-    const mess = useContext(UserContext)
-
 
     const toggle = () => {
         setRemember(!remember);
@@ -105,8 +100,7 @@ const Login = (props) => {
 
     return (
         <div id="login_container">
-            <p>{mess}</p>
-            {redirect ? <Redirect to='/inventory' /> : ''}
+            {redirect !== null ? <Redirect to='/inventory' /> : ''}
 
             <Container component="main" maxWidth="xs">
             <CssBaseline />

@@ -11,7 +11,7 @@ export const logout = () => {
 }
 
 // Stores the Auth Token and admin status in LocalStorage
-export const setToken = (token, adminStatus) => {
+export const setToken = (token) => {
     localStorage.setItem('auth', token);
 }
 

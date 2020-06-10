@@ -7,13 +7,18 @@ import {logout, isLoggedIn} from '../config/auth';
 import {Redirect } from 'react-router-dom';
 import { UserContext } from '../context/user-context';
 
+import { Link } from 'react-router-dom';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+
 
 const AvatarLink = () => {
+    const user = useContext(UserContext)
+    console.log("user from avatar ", user)
 
     const [redirComp, setRedirComp] = useState('')
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const [loginStatus, setLoginStatus] = useState('');
+    // const [loginStatus, setLoginStatus] = useState('');
 
 
     const handleClick = (event) => {
@@ -26,17 +31,17 @@ const AvatarLink = () => {
 
     const handleLogout = async () => {
         await logout();
-        setLoginStatus(loginStatus);
+        // setLoginStatus(loginStatus);
         const redirect = < Redirect to='/' />
         setRedirComp(redirect);
     }
-    const handleStatus = () => {
-        isLoggedIn() ? 
-        setLoginStatus(true)
-        : setLoginStatus(false)
-      }
+    // const handleStatus = () => {
+    //     isLoggedIn() ? 
+    //     setLoginStatus(true)
+    //     : setLoginStatus(false)
+    //   }
       useEffect(() => {
-        handleStatus();
+        // handleStatus();
         if (redirComp !== '') setRedirComp('');
      }, [redirComp]);
     
@@ -44,17 +49,20 @@ const AvatarLink = () => {
     //     if (redirComp !== '') setRedirComp('');
     // }, [redirComp]);
 
+    const loginStatus = isLoggedIn();
+
 
     return (
         <div id="avatar_container">
             { loginStatus ? 
                 <span>
-                    <p>Welcome!</p>
+                    Welcome back {user.fname}
                     <AccountCircleIcon 
                     aria-controls="avatar-menu" 
                     aria-haspopup="true" 
                     onClick={handleClick} 
                     fontSize={'large'}/>
+                    <Link to="/cart"><ShoppingCartOutlinedIcon /></Link>
                 <Menu
                     id="avatar-menu"
                     anchorEl={anchorEl}
@@ -72,6 +80,7 @@ const AvatarLink = () => {
                  } 
             
             {redirComp}
+            
         </div>
     )
 };
