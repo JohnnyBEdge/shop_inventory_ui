@@ -9,15 +9,12 @@ import { UserContext } from '../context/user-context';
 
 
 const AvatarLink = () => {
-    // const {status, setStatus} = useContext(UserContext);
 
-    // const [loggedIn, setLoggedIn] = useState(logged);
     const [redirComp, setRedirComp] = useState('')
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const [loginStatus, setLoginStatus] = useState('');
 
-    console.log("status from avatar", loginStatus)
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);

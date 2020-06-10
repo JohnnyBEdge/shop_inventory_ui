@@ -7,7 +7,7 @@ import Inventory from '../pages/Inventory';
 import Main from '../pages/Main';
 import Admin from '../pages/Admin';
 import Cart from '../pages/Cart';
-import {isLoggedIn, logout, isUserAdmin} from '../config/auth';
+import {isLoggedIn, logout} from '../config/auth';
 import {ItemContext} from '../context/item-context';
 import AvatarLink from '../components/AvatarLink';
 
@@ -50,37 +50,17 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-  
 
 
-  const PrivateRoute = ({component: Component, restricted, ...rest}) => {
-    return (
-        <Route {...rest} render={props => 
-            // isLoggedIn() && restricted ?
-            isLoggedIn() ?
-            (<Component {...props} />)
-            : (<Redirect to="/inventory" />)
-        } />
-    );
-};
 
-  const AdminRoute = ({component: Component, ...rest}) => {
-    const admin = isLoggedIn() && isUserAdmin();
-    
-    return (
-          <Route {...rest} render={props => 
-            admin ?
-                (<Component {...props} />)
-            : (<Redirect to="/" />)
-        } />
-    );
-};
+
 
   
 const Nav = () => {
   const [inventory, setInventory] = useState([]);
   const [error, setError] = useState(false);
   const [loginStatus, setLoginStatus] = useState('');
+  const [user] = useState(JSON.parse(localStorage.getItem('user')))
 
 
   // const providerValue = useMemo(() => ({ status, setStatus}), [status, setStatus])
@@ -104,8 +84,31 @@ const Nav = () => {
     handleStatus();
 }, []);
 
+const AdminRoute = ({component: Component, ...rest}) => {
+  const admin = isLoggedIn() && user.isAdmin;
+  
+  return (
+        <Route {...rest} render={props => 
+          admin ?
+              (<Component {...props} />)
+          : (<Redirect to="/" />)
+      } />
+  );
+};
+
+const PrivateRoute = ({component: Component, restricted, ...rest}) => {
+  return (
+      <Route {...rest} render={props => 
+          // isLoggedIn() && restricted ?
+          isLoggedIn() ?
+          (<Component {...props} />)
+          : (<Redirect to="/inventory" />)
+      } />
+  );
+};
+
     const classes = useStyles();
-console.log("status from nav ", loginStatus)
+
     // const returnHome = !isLoggedIn();
     // console.log("ret", returnHome)
 
@@ -147,7 +150,7 @@ console.log("status from nav ", loginStatus)
         </AppBar>
         {/* {secondaryNav} */}
         
-        {/* <UserContext.Provider value={loginStatus, setLoginStatus} > */}
+        <UserContext.Provider value={user} >
           <ItemContext.Provider value={inventory} >
             <Switch>
               <Route exact path="/" restricted={false} component={Main} />
@@ -163,7 +166,7 @@ console.log("status from nav ", loginStatus)
             </Switch>
 
           </ItemContext.Provider>
-          {/* </UserContext.Provider> */}
+          </UserContext.Provider>
         </Router>
       </div>
     )

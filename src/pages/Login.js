@@ -26,7 +26,7 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [msg, setMsg] = useState('');
-    // const [isAdmin, setIsAdmin] = useState(false);
+    // const [user, setUser] = useState(null)
     // const [redirect, setRedirect] = useState(false);
 
     const mess = useContext(UserContext)
@@ -37,6 +37,7 @@ const Login = (props) => {
     }
 
     const handleLogin = (event) => {
+        //checks if email and password is valid
         setMsg('');
         if(remember){
             localStorage.setItem('email', email);
@@ -52,16 +53,17 @@ const Login = (props) => {
         }).then(response => {
             if(response.status === 200) {
                 setToken(response.headers.get('authentication'), 
-                        response.headers.get('adminStatus'),
-                        response.headers.get('user'));
+                        // response.headers.get('adminStatus')
+                        )
                 //you wont see this, but it triggers the rerender and redirect
                 setMsg("Success!")
             } else {
                 setMsg('Login Failed');
-            }
-        })
+            } 
+            return response.json()
+        }).then(response => localStorage.setItem("user", JSON.stringify(response)))        
     };
-
+ 
 
     const useStyles = makeStyles((theme) => ({
         paper: {
@@ -94,6 +96,7 @@ const Login = (props) => {
             setRemember(true);
         }
     }, [])
+
 
 
     const classes = useStyles();
