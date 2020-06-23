@@ -13,7 +13,6 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 
 const AvatarLink = () => {
     const user = useContext(UserContext)
-    console.log("user from avatar ", user)
 
     const [redirComp, setRedirComp] = useState('')
     const [anchorEl, setAnchorEl] = React.useState(null);

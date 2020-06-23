@@ -11,7 +11,7 @@ import Link from '@material-ui/core/Link';
 
 
 const Inventory = () => {
-const [open, setOpen] = useState(false);
+// const [open, setOpen] = useState(false);
 // const [selected, setSelected] = useState('')
 
 const inventory = useContext(ItemContext);

@@ -9,23 +9,30 @@ const selectedItem = JSON.parse(localStorage.getItem('selected'));
 
 const ItemPage = () => {
 
-    let existingCart = JSON.parse(localStorage.getItem("cart"));
-        if(existingCart == null){
-            existingCart = [];
-        }
-        console.log("existing cart ", existingCart)
+
+    // let existingCart = JSON.stringify(localStorage.getItem("cart"));
+    //     if(existingCart == null){
+    //         existingCart = [];
+    //     }
+
+    let existingCart = localStorage.getItem("cart");
+
+    console.log("existing ", existingCart)
+
+
     const user = useContext(UserContext);
     const [id] = useState(user._id);
     const [item] = useState(JSON.parse(localStorage.getItem('selected')));
-    const [cart, setCart] = useState(existingCart)
+    const [cart, setCart] = useState(JSON.parse(existingCart))
 
 
-    console.log("cart ", cart)
-    console.log("item ",item)
+
     const handleAddToCart = () => {
         cart.push(item);
         localStorage.setItem("cart", JSON.stringify(cart))
     };
+
+
 
     return(
         <div className="item-container">
@@ -35,7 +42,6 @@ const ItemPage = () => {
                 </div>
                 <p className="item-desc">{selectedItem.desc}</p>
             </div>
-
             <div className="right-item-content">
                 <p className="item-name">{selectedItem.name}</p>
                 <p className="item-price">{selectedItem.price}</p>
@@ -48,11 +54,16 @@ const ItemPage = () => {
                 >Add to Cart
                 </Button>
             </div>
-
-
-
         </div>
     )
-};
+}
 
-export default ItemPage;
+    export default ItemPage
+
+
+
+
+
+
+
+
