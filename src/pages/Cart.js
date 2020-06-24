@@ -17,18 +17,15 @@ const useStyles = makeStyles({
       minWidth: 700,
     },
   });
-  
+
+const rows = JSON.parse(localStorage.getItem("cart"));
+
 function ccyFormat(num) {
 // return `${num.toFixed(2)}`;
 }
 
 function priceRow(qty, unit) {
 return qty * unit;
-}
-
-function createRow(desc, qty, unit) {
-const price = priceRow(qty, unit);
-return { desc, qty, unit, price };
 }
 
 function subtotal(items) {
@@ -41,6 +38,7 @@ const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
 
 
+let index = 0;
 const Cart = () => {
     const classes = useStyles();
     return (
@@ -59,7 +57,7 @@ const Cart = () => {
                             colSpan={3}>
                         Order Summary
                         </TableCell>
-                        <TableCell align="right">Price</TableCell>
+
                     </TableRow>
                     <TableRow>
                         <TableCell>Item</TableCell>
@@ -69,14 +67,14 @@ const Cart = () => {
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {/* {rows.map((row) => (
-                        <TableRow key={row.desc}>
-                        <TableCell>{row.desc}</TableCell>
-                        <TableCell align="right">{row.qty}</TableCell>
-                        <TableCell align="right">{row.unit}</TableCell>
+                    {rows.map((row) => (
+                        <TableRow key={index++}>
+                        <TableCell>{row.name}</TableCell>
+                        <TableCell align="right">1</TableCell>
+                        <TableCell align="right">{row.price}</TableCell>
                         <TableCell align="right">{ccyFormat(row.price)}</TableCell>
                         </TableRow>
-                    ))} */}
+                    ))}
 
                     <TableRow>
                         <TableCell rowSpan={3} />
