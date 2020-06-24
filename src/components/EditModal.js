@@ -15,6 +15,7 @@ const EditModal = (props) => {
     const [price, setPrice] = useState(props.inventory.price);
     const [quantity, setQuantity] = useState(props.inventory.quantity);
     const [desc, setDesc] = useState(props.inventory.desc);
+    const [img, setImg] = useState(props.inventory.img);
 
 
     const editInventory = () => {
@@ -23,7 +24,7 @@ const EditModal = (props) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({name, price,quantity, desc})
+            body: JSON.stringify({name, price,quantity, desc, img})
         })
         .then(() => props.getInventory())
         .then(() => toggleModal())
@@ -112,6 +113,17 @@ const EditModal = (props) => {
                         onChange={({target}) => setPrice(target.value)}
                     />
                     <TextField
+                        name="img"
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="img_url"
+                        label="Img URL"
+                        value={img}
+                        className={classes.input}
+                        onChange={({target}) => setImg(target.value)}
+                    />
+                    <TextField
                         name="desc"
                         variant="outlined"
                         required
@@ -120,7 +132,7 @@ const EditModal = (props) => {
                         label="Description"
                         className={classes.input}
                         multiline = {true}
-                        rows="10"
+                        rows="5"
                         value={desc}
                         onChange={({target}) => setDesc(target.value)}
                     />

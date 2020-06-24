@@ -15,6 +15,7 @@ const AddModal = (props) => {
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [desc, setDesc] = useState('');
+    const [img, setImg] = useState('');
  
 
     const addInventory = () => {
@@ -23,8 +24,8 @@ const AddModal = (props) => {
             headers: {
                 "Content-type" : "application/json"
             },
-            body: JSON.stringify({name, price, quantity, desc})
-        }).then(() => {setName(''); setPrice(''); setQuantity(''); setDesc('')})
+            body: JSON.stringify({name, price, quantity, desc, img})
+        }).then(() => {setName(''); setPrice(''); setQuantity(''); setDesc(''); setImg('')})
         .then(() => toggleModal())
         .then(() => props.getInventory())
     }
@@ -112,6 +113,16 @@ const AddModal = (props) => {
                         label="Price"
                         className={classes.input}
                         onChange={({target}) => setPrice(target.value)}
+                    />
+                    <TextField
+                        name="img"
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="img_url"
+                        label="Img URL"
+                        className={classes.input}
+                        onChange={({target}) => setImg(target.value)}
                     />
                     <TextField
                         name="desc"
