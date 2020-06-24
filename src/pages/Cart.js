@@ -24,9 +24,9 @@ function ccyFormat(num) {
 // return `${num.toFixed(2)}`;
 }
 
-function priceRow(qty, unit) {
-return qty * unit;
-}
+// function priceRow(qty, unit) {
+// return qty * unit;
+// }
 
 function subtotal(items) {
 // return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import { setToken, isLoggedIn } from '../config/auth';
 // import {isLoggedIn} from '../config/auth';
 import Main from '../pages/Main';

@@ -1,5 +1,4 @@
 import React from 'react';
-import Login from './Login';
 import Logo1 from '../styling/imgs/logo1.png';
 import Logo2 from '../styling/imgs/logo2.png';
 import Logo3 from '../styling/imgs/logo3.png';

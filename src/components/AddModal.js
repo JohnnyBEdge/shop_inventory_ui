@@ -27,7 +27,7 @@ const AddModal = (props) => {
             body: JSON.stringify({name, price, quantity, desc, img})
         }).then(() => {setName(''); setPrice(''); setQuantity(''); setDesc(''); setImg('')})
         .then(() => toggleModal())
-        .then(() => props.getInventory())
+        // .then(() => props.getInventory())
     }
 
 
