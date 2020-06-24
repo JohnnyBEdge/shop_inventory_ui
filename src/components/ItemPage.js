@@ -3,6 +3,11 @@ import '../styling/item-page.css';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Button from '@material-ui/core/Button';
 import { UserContext } from '../context/user-context';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const selectedItem = JSON.parse(localStorage.getItem('selected'));
 
@@ -34,6 +39,18 @@ const ItemPage = () => {
             <div className="right-item-content">
                 <p className="item-name">{selectedItem.name}</p>
                 <p className="item-price">Price: ${selectedItem.price}</p>
+                <FormControl variant="outlined" >
+                <InputLabel id="demo">Size</InputLabel>
+                <Select
+                    labelId="demo-simple-select-outlined-label"
+                    className="select-size"
+                    label="Size"
+                >
+                    <MenuItem value={"s"}>Small</MenuItem>
+                    <MenuItem value={"m"}>Medium</MenuItem>
+                    <MenuItem value={"l"}>Large</MenuItem>
+                </Select>
+                </FormControl>
                 <p className="item-quantity">Quantity: {selectedItem.quantity}</p>
                 <Button
                     variant="contained"

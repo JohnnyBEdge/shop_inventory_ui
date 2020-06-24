@@ -9,7 +9,6 @@
     display: flex;
     flex-direction: column;
     width: 1fr;
-    border: solid black 1px;
     align-items: center;
 }
 
@@ -29,9 +28,18 @@
 .item-name {
     font-family: Stuart,Georgia,serif;
     font-weight: 700;
-    font-size: 30px;
+    font-size: 35px;
     padding: 5px;
-    margin-top: 20px;
+    margin-top: 40px;
+}
+
+.item-price, .item-quantity {
+    font-size: 18px;
+
+}
+
+.select-size {
+    min-width: 120px;;
 }
 
 
