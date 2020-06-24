@@ -2,24 +2,27 @@
     width: 1fr;
     height: auto;
     border: solid black 1px;
+    border-radius: 3px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    transition: all .1s ease-in-out,
+    justify-content: center;
+    align-items: center;
+    transition: all .1s ease-in-out;
+    color: rgb(45, 42, 42);
 }
 
 .thumbnail-container:hover {
     transform: scale(1.1)
 }
 
-.img-container {
-    align-self: center;
-}
 img {
-    width: 150px
+    width: 150px;
+    margin: 10px;
 }
 
-.item-name, .item-price, .item-quantity {
+.thumb-item-name {
     padding: 0;
     margin: 5px;
+    font-size: 20px;
+    max-width: 225px;
 }

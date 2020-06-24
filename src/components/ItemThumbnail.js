@@ -9,12 +9,11 @@ const ItemThumbNail = (props) => {
     return (
         <Link href="/item-page" item={props.item}>
         <div className="thumbnail-container">
-            <div className="img-container">
-                <img src={placeholder} alt="default img placeholder" />
+            <div className="thumb-img-container">
+                <img src={props.item.img} alt="default img placeholder" />
             </div>
-            <h4 className="item-name">{props.item.name}</h4>
-             <p className="item-price">{props.item.price}</p>
-            <p className="item-quantity">{props.item.quantity}</p>
+            <h4 className="thumb-item-name">{props.item.name}</h4>
+             <p className="thumb-item-price">Price: ${props.item.price}</p>
         </div>
         </Link>
     )
