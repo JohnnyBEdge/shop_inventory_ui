@@ -10,68 +10,81 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
+const cart = JSON.parse(localStorage.getItem("cart"));
+
 const TAX_RATE = 0.07;
 
 const useStyles = makeStyles({
-    table: {
-      minWidth: 700,
-    },
-  });
-
-const rows = JSON.parse(localStorage.getItem("cart"));
+  table: {
+    minWidth: 700,
+  }
+});
 
 function ccyFormat(num) {
-// return `${num.toFixed(2)}`;
-}
+  return `${num.toFixed(2)}`;
+};
 
-// function priceRow(qty, unit) {
-// return qty * unit;
-// }
+function priceRow(qty, unit) {
+  return qty * unit;
+};
+
+function createRow(desc, qty, unit) {
+  const price = priceRow(qty, unit);
+  return { desc, qty, unit, price };
+};
 
 function subtotal(items) {
-// return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
-}
+  return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+};
 
-const invoiceSubtotal = subtotal("rows");
+const rows = [];
+
+cart.map((item) => {
+    return (
+        rows.push(createRow(item.name, 1, item.price))
+    );
+});
+
+
+const invoiceSubtotal = subtotal(rows);
 const invoiceTaxes = TAX_RATE * invoiceSubtotal;
 const invoiceTotal = invoiceTaxes + invoiceSubtotal;
-
 
 
 let index = 0;
 const Cart = () => {
     const classes = useStyles();
+
+
     return (
         <div id="cart_container">
             <h2>Your Cart</h2>
             <Button>Proceed With Order</Button>
 
+            
+
             <TableContainer component={Paper}>
-                <Table 
-                    className={classes.table} 
-                    aria-label="spanning table">
+                <Table className={classes.table} aria-label="spanning table">
                     <TableHead>
                     <TableRow>
-                        <TableCell 
-                            align="center" 
-                            colSpan={3}>
-                        Order Summary
+                        <TableCell align="center" colSpan={3}>
+                        Details
                         </TableCell>
-
+                        <TableCell align="right">Price</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell>Item</TableCell>
+                        <TableCell>Desc</TableCell>
                         <TableCell align="right">Qty.</TableCell>
-                        <TableCell align="right">Price/Each</TableCell>
+                        <TableCell align="right">Unit</TableCell>
                         <TableCell align="right">Sum</TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
                     {rows.map((row) => (
-                        <TableRow key={index++}>
-                        <TableCell>{row.name}</TableCell>
-                        <TableCell align="right">1</TableCell>
-                        <TableCell align="right">{row.price}</TableCell>
+                        <TableRow key={row.desc}>
+                        <TableCell>{row.desc}</TableCell>
+                        <TableCell align="right">{row.qty}</TableCell>
+                        <TableCell align="right">{row.unit}</TableCell>
                         <TableCell align="right">{ccyFormat(row.price)}</TableCell>
                         </TableRow>
                     ))}
@@ -92,8 +105,7 @@ const Cart = () => {
                     </TableRow>
                     </TableBody>
                 </Table>
-            </TableContainer>
-
+                </TableContainer>
         </div>
     )
 };
