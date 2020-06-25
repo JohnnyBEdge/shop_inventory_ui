@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import ItemPage from '../components/ItemPage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
@@ -86,13 +86,23 @@ const AdminRoute = ({component: Component, ...rest}) => {
   );
 };
 
-const PrivateRoute = ({component: Component, restricted, ...rest}) => {
+const PrivateRoute = ({component: Component, ...rest}) => {
   return (
       <Route {...rest} render={props => 
           isLoggedIn() ?
           (<Component {...props} />)
-          : (<Redirect to="/inventory" />)
+          : (<Redirect to="/" />)
       } />
+  );
+};
+
+const LoggedInRoute = ({component: Component, ...rest}) =>{
+  return (
+    <Route {...rest} render={props => 
+      !isLoggedIn() ?
+    (<Component {...props} />)
+    : (<Redirect to="inventory" />)
+  } />
   );
 };
 
@@ -119,14 +129,13 @@ const PrivateRoute = ({component: Component, restricted, ...rest}) => {
                     </span>
                   </Toolbar>
               </AppBar>
-            
 
               <Switch>
-                <Route exact path="/" restricted={false} component={Main} />
-                <Route exact path="/item-page" restricted={true} component={ItemPage} />
-                <Route exact path="/login" restricted={true} component={Login} />
-                <Route exact path="/sign-up"  component={SignUp} />
-                <Route exact path="/cart" component={Cart} />
+                <Route exact path="/"  component={Main} />
+                <PrivateRoute exact path="/item-page"  component={ItemPage} />
+                <LoggedInRoute exact path="/login"  component={Login} />
+                <LoggedInRoute exact path="/sign-up"  component={SignUp} />
+                <PrivateRoute exact path="/cart" component={Cart} />
 
                 <PrivateRoute exact path="/inventory" component={Inventory} />
                 <AdminRoute exact path="/admin" component={Admin} />
