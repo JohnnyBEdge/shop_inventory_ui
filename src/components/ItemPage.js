@@ -14,6 +14,9 @@ const selectedItem = JSON.parse(localStorage.getItem('selected'));
 const ItemPage = () => {
 
     let existingCart = localStorage.getItem("cart");
+
+
+    console.log("existing", existingCart)
     const user = useContext(UserContext);
     const [id] = useState(user._id);
     const [item] = useState(JSON.parse(localStorage.getItem('selected')));
@@ -22,6 +25,9 @@ const ItemPage = () => {
 
 
     const handleAddToCart = () => {
+        // if(existingCart === null){
+        //     localStorage.setItem("cart", [])
+        // }
         cart.push(item);
         localStorage.setItem("cart", JSON.stringify(cart))
     };

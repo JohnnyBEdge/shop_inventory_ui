@@ -56,7 +56,8 @@ const Login = (props) => {
                 setMsg('Login Failed');
             } 
             return response.json()
-        }).then(response => localStorage.setItem("user", JSON.stringify(response)))        
+        }).then(response => localStorage.setItem("user", JSON.stringify(response))
+        ).then(response => localStorage.setItem("cart", JSON.stringify([])))    
     };
  
 
