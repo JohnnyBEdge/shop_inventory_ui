@@ -25,9 +25,6 @@ const ItemPage = () => {
 
 
     const handleAddToCart = () => {
-        // if(existingCart === null){
-        //     localStorage.setItem("cart", [])
-        // }
         cart.push(item);
         localStorage.setItem("cart", JSON.stringify(cart))
     };

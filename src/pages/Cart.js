@@ -17,9 +17,26 @@ const TAX_RATE = 0.07;
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
+    maxWidth: 1000,
+    margin: "0 auto"
+  },
+  btn: {
+    margin: "20px",
+    position: "relative",
+    left: "70%",
+    paddingBottom: 10
+  },
+  header: {
+      fontWeight: 800,
+      fontSize: 18
+  },
+  cartH2:{
+      marginLeft: "42%",
+      fontSize: 30
   }
 });
 
+//maintains currency format
 function ccyFormat(num) {
   return `${num.toFixed(2)}`;
 };
@@ -58,34 +75,24 @@ const Cart = () => {
 
     return (
         <div id="cart_container">
-            <h2>Your Cart</h2>
-            <Button>Proceed With Order</Button>
-
-            
-
+            <h2 className={classes.cartH2}>Your Cart</h2>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="spanning table">
                     <TableHead>
-                    <TableRow>
-                        <TableCell align="center" colSpan={3}>
-                        Details
-                        </TableCell>
-                        <TableCell align="right">Price</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>Desc</TableCell>
-                        <TableCell align="right">Qty.</TableCell>
-                        <TableCell align="right">Unit</TableCell>
-                        <TableCell align="right">Sum</TableCell>
-                    </TableRow>
+                        <TableRow>
+                            <TableCell className={classes.header}>Item</TableCell>
+                            <TableCell className={classes.header} align="left">Quantity:</TableCell>
+                            <TableCell className={classes.header} align="left">Price each:</TableCell>
+                            <TableCell className={classes.header} align="right">Sum Total</TableCell>
+                        </TableRow>
                     </TableHead>
                     <TableBody>
                     {rows.map((row) => (
                         <TableRow key={row.desc}>
                         <TableCell>{row.desc}</TableCell>
-                        <TableCell align="right">{row.qty}</TableCell>
-                        <TableCell align="right">{row.unit}</TableCell>
-                        <TableCell align="right">{ccyFormat(row.price)}</TableCell>
+                        <TableCell align="left">{row.qty}</TableCell>
+                        <TableCell align="left" >{row.unit}</TableCell>
+                        <TableCell align="right" >{ccyFormat(row.price)}</TableCell>
                         </TableRow>
                     ))}
 
@@ -106,6 +113,12 @@ const Cart = () => {
                     </TableBody>
                 </Table>
                 </TableContainer>
+                <Button 
+                    className={classes.btn}
+                    variant="contained"
+                    color="primary">
+                    Proceed With Order
+                </Button>
         </div>
     )
 };
