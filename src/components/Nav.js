@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import ItemPage from '../components/ItemPage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
@@ -52,7 +52,13 @@ const Nav = () => {
   const [inventory, setInventory] = useState([]);
   const [error, setError] = useState(false);
   const [loginStatus, setLoginStatus] = useState('false');
-  const [user] = useState(JSON.parse(localStorage.getItem('user')))
+  const [user] = useState(JSON.parse(localStorage.getItem('user')));
+
+  const initializeCart = () => {
+    if(localStorage.getItem("cart") === null){
+        localStorage.setItem("cart", JSON.stringify([]))
+    };
+};
 
 
   async function getInventory(){
@@ -72,6 +78,7 @@ const Nav = () => {
   useEffect(() => {
     getInventory();
     handleStatus();
+    initializeCart();
 }, []);
 
 const AdminRoute = ({component: Component, ...rest}) => {

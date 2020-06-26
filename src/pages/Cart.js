@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -56,12 +56,11 @@ function subtotal(items) {
 
 const rows = [];
 
-cart.map((item) => {
-    return (
-        rows.push(createRow(item.name, 1, item.price))
-    );
-});
-
+    cart.map((item) => {
+        return (
+            rows.push(createRow(item.name, 1, item.price))
+        );
+    });
 
 const invoiceSubtotal = subtotal(rows);
 const invoiceTaxes = TAX_RATE * invoiceSubtotal;
@@ -71,7 +70,6 @@ const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 let index = 0;
 const Cart = () => {
     const classes = useStyles();
-
 
     return (
         <div id="cart_container">
@@ -88,7 +86,7 @@ const Cart = () => {
                     </TableHead>
                     <TableBody>
                     {rows.map((row) => (
-                        <TableRow key={row.desc}>
+                        <TableRow key={index++}>
                         <TableCell>{row.desc}</TableCell>
                         <TableCell align="left">{row.qty}</TableCell>
                         <TableCell align="left" >{row.unit}</TableCell>

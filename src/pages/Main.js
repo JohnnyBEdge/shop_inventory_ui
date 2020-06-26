@@ -56,28 +56,28 @@ const Main = () => {
                 <p>All the brands you love, at prices you can afford!</p>
                 <div className={classes.logos}>
                     <div className={classes.logo}>
-                        <img src={Logo1} className={classes.image}/>
+                        <img src={Logo1} className={classes.image} alt="logo"/>
                     </div>
                     <div className={classes.logo}>
-                        <img src={Logo2} className={classes.image} />
+                        <img src={Logo2} className={classes.image} alt="logo" />
                     </div>
                     <div className={classes.logo}>
-                        <img src={Logo3} className={classes.image} />
+                        <img src={Logo3} className={classes.image} alt="logo" />
                     </div>
                     <div className={classes.logo}>
-                        <img src={Logo4} className={classes.image} />
+                        <img src={Logo4} className={classes.image} alt="logo" />
                     </div>
                     <div className={classes.logo}>
-                        <img src={Logo5} className={classes.image} />
+                        <img src={Logo5} className={classes.image} alt="logo" />
                     </div>
                     <div className={classes.logo}>
-                        <img src={Logo6} className={classes.image} />
+                        <img src={Logo6} className={classes.image} alt="logo" />
                     </div>
                     <div className={classes.logo}>
-                        <img src={Logo7} className={classes.image} />
+                        <img src={Logo7} className={classes.image} alt="logo" />
                     </div>
                     <div className={classes.logo}>
-                        <img src={Logo8} className={classes.image} />
+                        <img src={Logo8} className={classes.image} alt="logo" />
                     </div>
 
                 </div>

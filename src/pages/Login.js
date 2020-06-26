@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { setToken, isLoggedIn } from '../config/auth';
 // import {isLoggedIn} from '../config/auth';
-import Main from '../pages/Main';
-import {UserContext} from '../context/user-context';
+// import Main from '../pages/Main';
+// import {UserContext} from '../context/user-context';
 import '../styling/login.css';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -18,7 +18,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Redirect, Route } from 'react-router-dom'
+import { Redirect} from 'react-router-dom'
 
 const Login = (props) => {
 
@@ -47,9 +47,7 @@ const Login = (props) => {
             body: JSON.stringify({ email, password })
         }).then(response => {
             if(response.status === 200) {
-                setToken(response.headers.get('authentication'), 
-                        // response.headers.get('adminStatus')
-                        )
+                setToken(response.headers.get('authentication'),)
                 //you wont see this, but it triggers the rerender and redirect
                 setMsg("Success!")
             } else {
@@ -57,9 +55,15 @@ const Login = (props) => {
             } 
             return response.json()
         }).then(response => localStorage.setItem("user", JSON.stringify(response))
-        ).then(response => localStorage.setItem("cart", JSON.stringify([])))    
+        )
+        // .then(initializeCart());
     };
  
+    const initializeCart = () => {
+        if(localStorage.getItem("cart") === null){
+            localStorage.setItem("cart", JSON.stringify([]))
+        };
+    };
 
     const useStyles = makeStyles((theme) => ({
         paper: {

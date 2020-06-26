@@ -1,11 +1,10 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import '../styling/item-page.css';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Button from '@material-ui/core/Button';
-import { UserContext } from '../context/user-context';
+// import { UserContext } from '../context/user-context';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -14,22 +13,13 @@ const selectedItem = JSON.parse(localStorage.getItem('selected'));
 const ItemPage = () => {
 
     let existingCart = localStorage.getItem("cart");
-
-
-    console.log("existing", existingCart)
-    const user = useContext(UserContext);
-    const [id] = useState(user._id);
     const [item] = useState(JSON.parse(localStorage.getItem('selected')));
-    const [cart, setCart] = useState(JSON.parse(existingCart))
-
-
+    const [cart] = useState(JSON.parse(existingCart));
 
     const handleAddToCart = () => {
         cart.push(item);
         localStorage.setItem("cart", JSON.stringify(cart))
     };
-
-
 
     return(
         <div className="item-container">
