@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-// import EditModal from '../components/EditModal';
-// import AddModal from '../components/AddModal';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -11,19 +9,18 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-// import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 
 const UserManagement = () => {
 
 const [users, setUsers] = useState([]);
-const [error, setError] = useState(false);
+// const [error, setError] = useState(false);
 
 async function getUsers(){
     const response = await fetch('http://localhost:5100/api/accounts');
     response.json()
         .then(response => setUsers(response))
-        .catch(err => setError());
+        // .catch(err => setError());
   };
 
   useEffect(() => {

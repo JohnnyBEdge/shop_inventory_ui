@@ -55,7 +55,8 @@ const SignUp = () => {
                 break;    
             case "passwordMatch":
                 value.match(password) ? setPasswordMatchError(false) : setPasswordMatchError(true);
-                break;    
+                break;
+            default:
         };
     };
 

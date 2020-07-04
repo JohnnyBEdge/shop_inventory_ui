@@ -17,7 +17,6 @@ import orderBy from 'lodash/orderBy';
 const InventoryManagement = (props) => {
 
     const inventory = useContext(ItemContext);
-    console.log("inv ",inventory)
 
     const toggleDirection = () => {
         if(direction === "asc"){
@@ -71,7 +70,6 @@ const InventoryManagement = (props) => {
     //     }
     // }, [])
 
-    console.log("sortlist ", sortList)
 
     return (
         <div id="inventory_container">

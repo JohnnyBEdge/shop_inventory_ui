@@ -59,11 +59,11 @@ const Login = (props) => {
         // .then(initializeCart());
     };
  
-    const initializeCart = () => {
-        if(localStorage.getItem("cart") === null){
-            localStorage.setItem("cart", JSON.stringify([]))
-        };
-    };
+    // const initializeCart = () => {
+    //     if(localStorage.getItem("cart") === null){
+    //         localStorage.setItem("cart", JSON.stringify([]))
+    //     };
+    // };
 
     const useStyles = makeStyles((theme) => ({
         paper: {
