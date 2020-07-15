@@ -15,14 +15,13 @@ const Inventory = () => {
             .then(response => response.json())
             .then(data => setInventory(data))
         };
-        console.log("inventory ",inventory)
 
     const handleSelected = (item) => {
         localStorage.setItem('selected', JSON.stringify(item))
     }
 
     const item = inventory.map((item) => {
-        return <Link to="/item-page" onClick={() => handleSelected(item)} key={item._id}>
+        return <Link to="/item" onClick={() => handleSelected(item)} key={item._id}>
                 <ItemThumbnail item={item}/>
             </Link>
     });
@@ -33,18 +32,24 @@ const Inventory = () => {
 
     const classes = useStyles();
     return(
-        <div id="inventory_container">
+        <div id="inventory_container" >
             <h1>Inventory Page</h1>
-            <div id="items_container">
+            <div id="items_container" className={classes.itemsContainer}>
                 {item}
             </div> 
         </div>
     )
 }
 
-const useStyles = makeStyles((theme) => ({
-    title: {
-      flexGrow: 1,
+const useStyles = makeStyles(() => ({
+    itemsContainer: {
+        width: "80%",
+        height: "auto",
+        margin: "0 auto",
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gridGap: 15,
+        marginTop: 30,
     },
   }));
 

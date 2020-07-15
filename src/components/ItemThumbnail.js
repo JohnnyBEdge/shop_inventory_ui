@@ -9,7 +9,7 @@ const ItemThumbNail = (props) => {
     const classes = useStyles();
 
     return (
-        <Link href="/item-page" item={props.item}>
+        <Link href="/item" item={props.item}>
             <div className={classes.container}>
                 <div className={classes.imgContainer}>
                     <img className={classes.img} src={props.item.img} alt={props.item.name} />
