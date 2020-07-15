@@ -5,6 +5,7 @@ import Admin from './pages/Admin';
 import Inventory from './pages/Inventory';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
+import Nav from './pages/Nav';
 
 import {
   BrowserRouter as Router,
@@ -41,6 +42,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <Nav/>
         <Router>
           <Switch>
             <Route exact path="/"  component={Home} />
