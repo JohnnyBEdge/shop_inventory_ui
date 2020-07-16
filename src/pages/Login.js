@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import LoginForm from '../components/LoginForm'
 
 const Login = (props) => {
     // form type currently displayed
@@ -26,6 +27,7 @@ const Login = (props) => {
     return (
         <div id="login_form_container">
             <h1>Login Page</h1>
+            {/* <LoginForm /> */}
         </div>
     )
 }

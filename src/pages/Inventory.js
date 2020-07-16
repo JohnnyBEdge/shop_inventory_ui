@@ -3,6 +3,7 @@ import ItemThumbnail from '../components/ItemThumbnail';
 
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
+import { useParams } from "react-router";
 
 
 const Inventory = () => {
@@ -19,9 +20,9 @@ const Inventory = () => {
     const handleSelected = (item) => {
         localStorage.setItem('selected', JSON.stringify(item))
     }
-
+    let { id } = useParams();
     const item = inventory.map((item) => {
-        return <Link to="/item" onClick={() => handleSelected(item)} key={item._id}>
+        return <Link to={`/item/${item._id}` }onClick={() => handleSelected(item)} key={item._id}>
                 <ItemThumbnail item={item}/>
             </Link>
     });
@@ -29,6 +30,8 @@ const Inventory = () => {
     useEffect(() => {
         getInventory();
     }, []);
+
+
 
     const classes = useStyles();
     return(
