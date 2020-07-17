@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {setToken} from '../config/auth';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -33,26 +34,25 @@ const LoginForm = (props) => {
         } else {
             localStorage.removeItem('email');
         };
-    };
 
-    //     fetch(`http://localhost:5100/api/accounts/login`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({ email, password })
-    //     }).then(response => {
-    //         if(response.status === 200) {
-    //             setToken(response.headers.get('authentication'),)
-    //             //you wont see this, but it triggers the rerender and redirect
-    //             setMsg("Success!")
-    //         } else {
-    //             setMsg('Login Failed');
-    //         } 
-    //         return response.json()
-    //     }).then(response => localStorage.setItem("user", JSON.stringify(response))
-    //     )
-    // };
+        fetch('https://jm-shop-api.herokuapp.com/api/accounts/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password })
+        }).then(response => {
+            if(response.status === 200) {
+                setToken(response.headers.get('authentication'),)
+                //you wont see this, but it triggers the rerender and redirect
+                setMsg("Success!")
+            } else {
+                setMsg('Login Failed');
+            } 
+            return response.json()
+        }).then(response => localStorage.setItem("user", JSON.stringify(response))
+        )
+    };
 
     const classes = useStyles();
     
