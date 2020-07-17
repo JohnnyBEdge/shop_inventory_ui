@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Redirect} from 'react-router-dom'
 
-const LoginForm = () => {
+const LoginForm = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -122,7 +122,10 @@ const LoginForm = () => {
                         </Link>
                         </Grid>
                         <Grid item>
-                        <Link to="" variant="body2">
+                        <Link 
+                            to=""
+                            onClick={props.handleFormView} 
+                            variant="body2">
                             {"Don't have an account? Sign Up"}
                         </Link>
                         </Grid>

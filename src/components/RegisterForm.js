@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-const RegisterForm = () => {
+const RegisterForm = (props) => {
 
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
@@ -194,7 +194,9 @@ const RegisterForm = () => {
                 </Button>
                 <Grid container justify="flex-end" className={classes.linkContainer}>
                     <Grid item>
-                    <Link to="/login" variant="body2">
+                    <Link to='' 
+                    onClick={props.handleFormView} 
+                    variant="body2">
                         Already have an account? Sign in
                     </Link>
                     </Grid>
@@ -215,7 +217,8 @@ const useStyles = makeStyles((theme) => ({
       },
       registerForm: {
           border: "solid black 1px",
-          borderRadius: 5
+          borderRadius: 5,
+          marginTop: 50
       },
       avatar: {
         margin: theme.spacing(1),

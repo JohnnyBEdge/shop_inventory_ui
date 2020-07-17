@@ -8,7 +8,7 @@ const Login = (props) => {
     return (
         <div id="login_form_container">
             <h1>Login Page</h1>
-            <RegisterForm />
+            {/* <RegisterForm /> */}
         </div>
     )
 }

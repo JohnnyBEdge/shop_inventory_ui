@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm'
 import AdContainer from '../components/AdContainer';
 
 import Link from '@material-ui/core/Link';
@@ -7,7 +8,21 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 const Home = () => {
-    const [formType, setFormType] = useState('');
+    const [formView, setFormView] = useState('login');
+
+    const handleFormView = () => {
+        formView === 'login' ? setFormView('register') : setFormView('login');
+    };
+
+    const form = 
+        formView === 'login' ? 
+            <LoginForm 
+            handleFormView={handleFormView}
+            /> 
+            : <RegisterForm 
+            handleFormView={handleFormView}
+            />
+    ;
 
     const classes = useStyles();
     return(
@@ -18,12 +33,14 @@ const Home = () => {
                     <h1>Welcome</h1>
                     <p>Welcome to the exclusive, members only gear shop. To view the best deals on the
                         market right now, please login. If you have not made an account yet, you can do 
-                        so <Link>here!</Link></p>
+                        so <Link 
+                        onClick={handleFormView}
+                        >here!</Link></p>
                     <AdContainer/>
                 </div>
 
                 <div className={`${classes.right} ${classes.con}`}>
-                    <LoginForm />
+                    {form}
                 </div>
             </div>
 
