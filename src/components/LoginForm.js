@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {setToken} from '../config/auth';
+import {setToken, isLoggedIn} from '../config/auth';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -26,6 +26,7 @@ const LoginForm = (props) => {
         setRemember(!remember);
     };
 
+
     const handleLogin = () => {
         //checks if email and password is valid
         setMsg('');
@@ -43,9 +44,9 @@ const LoginForm = (props) => {
             body: JSON.stringify({ email, password })
         }).then(response => {
             if(response.status === 200) {
-                setToken(response.headers.get('authentication'),)
-                //you wont see this, but it triggers the rerender and redirect
-                setMsg("Success!")
+                setToken(response.headers.get('authentication'),);
+                setMsg(<Redirect to='/inventory' />);
+                // setMsg("Success!")
             } else {
                 setMsg('Login Failed');
             } 
