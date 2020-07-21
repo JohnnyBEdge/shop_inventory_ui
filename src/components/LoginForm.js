@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {setToken, isLoggedIn} from '../config/auth';
+import {LoginStatus} from '../context/login-status-context';
+
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -21,6 +23,7 @@ const LoginForm = (props) => {
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [msg, setMsg] = useState('');
+    const {loggedInStatus, setLoggedInStatus} = useContext(LoginStatus)
 
     const toggle = () => {
         setRemember(!remember);
@@ -46,7 +49,7 @@ const LoginForm = (props) => {
             if(response.status === 200) {
                 setToken(response.headers.get('authentication'),);
                 setMsg(<Redirect to='/inventory' />);
-                // setMsg("Success!")
+                setLoggedInStatus("Logged In!")
             } else {
                 setMsg('Login Failed');
             } 
@@ -58,8 +61,8 @@ const LoginForm = (props) => {
     const classes = useStyles();
     
     return(
+
         <div id="login_container">
-            {/* {redirect !== null ? <Redirect to='/inventory' /> : ''} */}
 
             <Container component="main" maxWidth="xs" className={classes.formContainer}>
             <CssBaseline />
@@ -135,6 +138,7 @@ const LoginForm = (props) => {
             </div>
         </Container>
     </div>
+
     )
 };
 

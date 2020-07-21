@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {useState, Component, useContext} from 'react';
 import Home from './pages/Home';
 import Item from './pages/Item';
 import Admin from './pages/Admin';
@@ -6,6 +6,7 @@ import Inventory from './pages/Inventory';
 import Cart from './pages/Cart';
 import Nav from './pages/Nav';
 import {isLoggedIn} from './config/auth';
+import { LoginStatus } from './context/login-status-context';
 
 import {
   BrowserRouter as Router,
@@ -15,8 +16,13 @@ import {
   Redirect
 } from "react-router-dom";
 
-class App extends Component {
-  render() {
+
+
+// class App extends Component { 
+const App = () => {
+
+  const [loggedInStatus, setLoggedInStatus] = useState(isLoggedIn())
+  // render() {
 
     // const AdminRoute = ({component: Component, ...rest}) => {
     //   // const admin = isLoggedIn() && user.isAdmin;
@@ -29,6 +35,8 @@ class App extends Component {
     //       } />
     //   );
     // };
+
+    // const loggedInStatus = isLoggedIn() ? "logged in" : "not logged in"
     
     const PrivateRoute = ({component: Component, ...rest}) => {
       return (
@@ -41,10 +49,12 @@ class App extends Component {
     };
 
     return (
+      <LoginStatus.Provider value={{loggedInStatus, setLoggedInStatus}}>
       <div className="App">
-        <Nav/>
+        <Nav />
         <Router>
           <Switch>
+          
             <Route exact path="/"  component={Home} />
             {/* <Route exact path="/item" component={Item} /> */}
             <PrivateRoute exact path="/item"  component={Item} />
@@ -60,8 +70,9 @@ class App extends Component {
           </Switch>
         </Router>
       </div>
+    </LoginStatus.Provider>
     );
   }
-}
+
 
 export default App;

@@ -1,5 +1,6 @@
-import React from 'react';
-
+import React, {useState, useContext} from 'react';
+import {isLoggedIn} from '../config/auth';
+import {LoginStatus} from '../context/login-status-context'
 // import AvatarLink from '../components/AvatarLink';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,6 +10,10 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const Nav = () => {
+  // const [loginStatus, setLoginStatus] = useState(isLoggedIn());
+  const {loggedInStatus} = useContext(LoginStatus)
+  // const message = useContext(LoginStatus)
+
     const classes = useStyles();
     return(
         <div id="nav_container">
@@ -17,13 +22,13 @@ const Nav = () => {
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" className={classes.title}>
+                <Typography variant="h6" className={classes.title}> 
                     {/* <Link to="/" style={{ textDecoration: 'none' }}> */}
-                    Shop Inventory
+                    {/* Shop Inventory */}
                     {/* </Link> */}
                 </Typography>
                     <span>
-                    Avatar Link
+                    {loggedInStatus ? "Logged In" : "Not Logged In"}
                     </span>
             </Toolbar>
             </AppBar>
