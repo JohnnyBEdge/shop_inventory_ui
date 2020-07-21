@@ -2,6 +2,7 @@ import React, {useState, useContext} from 'react';
 import {setToken, isLoggedIn} from '../config/auth';
 import {LoginStatus} from '../context/login-status-context';
 
+import { useHistory } from "react-router-dom";
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -23,7 +24,10 @@ const LoginForm = (props) => {
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [msg, setMsg] = useState('');
-    const {loggedInStatus, setLoggedInStatus} = useContext(LoginStatus)
+    const {loginStatus, setLoginStatus} = useContext(LoginStatus);
+    const history = useHistory();
+
+
 
     const toggle = () => {
         setRemember(!remember);
@@ -48,8 +52,9 @@ const LoginForm = (props) => {
         }).then(response => {
             if(response.status === 200) {
                 setToken(response.headers.get('authentication'),);
-                setMsg(<Redirect to='/inventory' />);
-                setLoggedInStatus("Logged In!")
+                history.push('/inventory')
+                // setMsg(<Redirect to='/inventory' />);
+                setLoginStatus("Logged In")
             } else {
                 setMsg('Login Failed');
             } 

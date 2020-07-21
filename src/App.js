@@ -1,4 +1,4 @@
-import React, {useState, Component, useContext} from 'react';
+import React, {useState, Component, useContext, useMemo} from 'react';
 import Home from './pages/Home';
 import Item from './pages/Item';
 import Admin from './pages/Admin';
@@ -16,12 +16,11 @@ import {
   Redirect
 } from "react-router-dom";
 
-
-
-// class App extends Component { 
 const App = () => {
 
-  const [loggedInStatus, setLoggedInStatus] = useState(isLoggedIn())
+  const [loginStatus, setLoginStatus] = useState(isLoggedIn() ? "Logged In" : "Not Logged In")
+
+
   // render() {
 
     // const AdminRoute = ({component: Component, ...rest}) => {
@@ -49,10 +48,11 @@ const App = () => {
     };
 
     return (
-      <LoginStatus.Provider value={{loggedInStatus, setLoggedInStatus}}>
+      <LoginStatus.Provider value={{loginStatus, setLoginStatus}}>
       <div className="App">
-        <Nav />
+        
         <Router>
+          <Nav />
           <Switch>
           
             <Route exact path="/"  component={Home} />

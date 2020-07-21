@@ -22,9 +22,9 @@ const Inventory = () => {
     }
     let { id } = useParams();
     const item = inventory.map((item) => {
-        return <Link to={`/item/${item._id}` }onClick={() => handleSelected(item)} key={item._id}>
+        return <a to={`/item/${item._id}` }onClick={() => handleSelected(item)} key={item._id}>
                 <ItemThumbnail item={item}/>
-            </Link>
+            </a>
     });
 
     useEffect(() => {

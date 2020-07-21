@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 import {isLoggedIn} from '../config/auth';
-import {LoginStatus} from '../context/login-status-context'
+// import {LoginStatus} from '../context/login-status-context'
 // import AvatarLink from '../components/AvatarLink';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,11 +8,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import AvatarLink from '../components/Avatar';
 
 const Nav = () => {
   // const [loginStatus, setLoginStatus] = useState(isLoggedIn());
-  const {loggedInStatus} = useContext(LoginStatus)
-  // const message = useContext(LoginStatus)
+  // const {loginStatus} = useContext(LoginStatus)
+  // const {loginStatus, setLoginStatus} = useContext(LoginStatus)
 
     const classes = useStyles();
     return(
@@ -28,7 +29,8 @@ const Nav = () => {
                     {/* </Link> */}
                 </Typography>
                     <span>
-                    {loggedInStatus ? "Logged In" : "Not Logged In"}
+                    {/* {loginStatus} */}
+                    <AvatarLink/>
                     </span>
             </Toolbar>
             </AppBar>
