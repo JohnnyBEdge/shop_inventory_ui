@@ -11,9 +11,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AvatarLink from '../components/Avatar';
 
 const Nav = () => {
-  // const [loginStatus, setLoginStatus] = useState(isLoggedIn());
-  // const {loginStatus} = useContext(LoginStatus)
-  // const {loginStatus, setLoginStatus} = useContext(LoginStatus)
 
     const classes = useStyles();
     return(
@@ -29,7 +26,6 @@ const Nav = () => {
                     {/* </Link> */}
                 </Typography>
                     <span>
-                    {/* {loginStatus} */}
                     <AvatarLink/>
                     </span>
             </Toolbar>

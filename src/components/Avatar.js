@@ -1,6 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {LoginStatus} from '../context/login-status-context'
-import { useHistory } from "react-router-dom";
+import React, {useState} from 'react';
 
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -8,16 +6,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {logout, isLoggedIn} from '../config/auth';
 import {Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 
 
 const AvatarLink = () => {
-    // const {loginStatus} = useContext(LoginStatus)
     const [redirComp, setRedirComp] = useState('');
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const history = useHistory();
-
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -29,7 +23,6 @@ const AvatarLink = () => {
 
     const handleLogout = async () => {
         await logout();
-        // history.push('/item')
         const redirect = <Redirect to='/' />
         setRedirComp(redirect);
     }

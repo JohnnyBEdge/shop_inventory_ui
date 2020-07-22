@@ -19,23 +19,22 @@ import {
 const App = () => {
 
   const [loginStatus, setLoginStatus] = useState(isLoggedIn() ? "Logged In" : "Not Logged In")
+  const [user] = useState(JSON.parse(localStorage.getItem('user')));
 
 
-  // render() {
 
-    // const AdminRoute = ({component: Component, ...rest}) => {
-    //   // const admin = isLoggedIn() && user.isAdmin;
+
+    const AdminRoute = ({component: Component, ...rest}) => {
+    const admin = isLoggedIn() && user.isAdmin;
       
-    //   return (
-    //         <Route {...rest} render={props => 
-    //           admin ?
-    //               (<Component {...props} />)
-    //           : (<Redirect to="/" />)
-    //       } />
-    //   );
-    // };
-
-    // const loggedInStatus = isLoggedIn() ? "logged in" : "not logged in"
+      return (
+            <Route {...rest} render={props => 
+              admin ?
+                  (<Component {...props} />)
+              : (<Redirect to="/" />)
+            } />
+        );
+      };
     
     const PrivateRoute = ({component: Component, ...rest}) => {
       return (
@@ -47,6 +46,16 @@ const App = () => {
       );
     };
 
+    const LoggedInRoute = ({component: Component, ...rest}) =>{
+      return (
+        <Route {...rest} render={props => 
+          !isLoggedIn() ?
+        (<Component {...props} />)
+        : (<Redirect to="inventory" />)
+      } />
+      );
+    };
+
     return (
       <LoginStatus.Provider value={{loginStatus, setLoginStatus}}>
       <div className="App">
@@ -55,18 +64,11 @@ const App = () => {
           <Nav />
           <Switch>
           
-            <Route exact path="/"  component={Home} />
-            {/* <Route exact path="/item" component={Item} /> */}
+            <LoggedInRoute exact path="/"  component={Home} />
             <PrivateRoute exact path="/item"  component={Item} />
-            {/* <Route exact path="/login"  component={Login} /> */}
-            {/* <LoggedInRoute exact path="/sign-up"  component={SignUp} /> */}
-            {/* <Route exact path="/cart" component={Cart} /> */}
             <PrivateRoute exact path="/cart" component={Cart} />
-
-            {/* <Route exact path="/inventory" component={Inventory} /> */}
             <PrivateRoute exact path="/inventory" component={Inventory} />
-            <Route exact path="/admin" component={Admin} />
-            {/* <AdminRoute exact path="/admin" component={Admin} /> */}
+            <AdminRoute exact path="/admin" component={Admin} />
           </Switch>
         </Router>
       </div>
