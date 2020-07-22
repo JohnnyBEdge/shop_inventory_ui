@@ -5,13 +5,16 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {logout, isLoggedIn} from '../config/auth';
-import {Redirect } from 'react-router-dom';
+import {Redirect, Link } from 'react-router-dom';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 
 
-const AvatarLink = () => {
+
+const Avatar = () => {
     const [redirComp, setRedirComp] = useState('');
     const [anchorEl, setAnchorEl] = React.useState(null);
+    // const [user] = useState(JSON.parse(localStorage.getItem('user')));
+
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -27,7 +30,15 @@ const AvatarLink = () => {
         setRedirComp(redirect);
     }
 
+
+        
     const loginStatus = isLoggedIn();
+    // const admin = user.isAdmin ? 
+    //     <MenuItem 
+    //         onClick={handleClose}
+    //         >Admin
+    //     </MenuItem>
+    //     : '';
 
 
     return (
@@ -39,9 +50,9 @@ const AvatarLink = () => {
                     aria-haspopup="true" 
                     onClick={handleClick} 
                     fontSize={'large'}/>
-                    {/* <Link to=""> */}
+                    <Link to="/cart">
                         <ShoppingCartOutlinedIcon />
-                    {/* </Link> */}
+                    </Link>
                 <Menu
                     id="avatar-menu"
                     anchorEl={anchorEl}
@@ -49,6 +60,7 @@ const AvatarLink = () => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
+                    {/* {admin} */}
                     <MenuItem 
                         onClick={handleClose}
                         >Profile
@@ -65,15 +77,14 @@ const AvatarLink = () => {
                     </MenuItem>
                 </Menu>
                 </span>
-                :
-                <p> You are not logged in.</p>
-                 } 
-                            {redirComp}
+              :
+                 <p> You are not logged in.</p>
+                  }  
 
-            
-            
+        {redirComp}
         </div>
+     
     )
 };
 
-export default AvatarLink;
+export default Avatar;

@@ -60,32 +60,29 @@ const RegisterForm = (props) => {
     };
 
 
-    // const addAccount = () => {
+    const addAccount = () => {
 
-    //     if(fNameError === false && fname !== '' 
-    //         && lNameError === false && lname !== ''
-    //         && emailError === false && email !== ''
-    //         && passwordError === false && password !== ''
-    //         && passwordMatchError === false){
-    //             console.log("valid form")
-    //         } else {
-    //             alert("Invalid form, check your information.")
-    //         };
-
-
-    //     fetch(`http://localhost:5100/api/accounts/register`, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type" : "application/json"
-    //         },
-    //         body: JSON.stringify({fname, lname, email, password, isAdmin, cart})
-    //     })
-    //     .then(() => {setFname(''); setLname(''); setEmail(''); setPassword(''); setPasswordMatch('')})
-
-    // };
+        if(fNameError === false && fname !== '' 
+            && lNameError === false && lname !== ''
+            && emailError === false && email !== ''
+            && passwordError === false && password !== ''
+            && passwordMatchError === false){
+                console.log("valid form")
+            } else {
+                alert("Invalid form, check your information.")
+            };
 
 
+        fetch('https://jm-shop-api.herokuapp.com/api/accounts/register', {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({fname, lname, email, password, isAdmin, cart})
+        })
+        .then(() => {setFname(''); setLname(''); setEmail(''); setPassword(''); setPasswordMatch('')})
 
+    };
 
 
     const classes = useStyles();
@@ -188,7 +185,7 @@ const RegisterForm = (props) => {
                     variant="contained"
                     color="primary"
                     className={classes.submit}
-                    // onClick={() => addAccount()}
+                    onClick={() => addAccount()}
                 >
                     Sign Up
                 </Button>

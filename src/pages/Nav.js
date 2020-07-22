@@ -1,5 +1,5 @@
-import React, {useState, useContext} from 'react';
-import {isLoggedIn} from '../config/auth';
+import React, {useState} from 'react';
+// import {isLoggedIn} from '../config/auth';
 // import {LoginStatus} from '../context/login-status-context'
 // import AvatarLink from '../components/AvatarLink';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,13 +8,16 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import AvatarLink from '../components/Avatar';
+import Avatar from '../components/Avatar';
+import { isLoggedIn } from '../config/auth';
 
 const Nav = () => {
+  // const [loginStatus, setLoginStatus] = useState(isLoggedIn() ? <Avatar/> : "Not logged innnn")
+  // const [user] = useState(JSON.parse(localStorage.getItem('user')));
 
     const classes = useStyles();
     return(
-        <div id="nav_container">
+      <div id="nav_container">
             <AppBar position="static" color="inherit">
             <Toolbar>
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -26,11 +29,13 @@ const Nav = () => {
                     {/* </Link> */}
                 </Typography>
                     <span>
-                    <AvatarLink/>
+                    {/* {loginStatus} */}
+                    <Avatar/>
                     </span>
             </Toolbar>
             </AppBar>
-        </div>
+            </div>
+
     )
 }
 

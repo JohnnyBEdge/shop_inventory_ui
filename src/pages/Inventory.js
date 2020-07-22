@@ -1,39 +1,27 @@
-import React, {useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import ItemThumbnail from '../components/ItemThumbnail';
 import {ItemContext} from '../context/item-context';
 
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams } from "react-router";
+// import { useParams } from "react-router";
+// import { isLoggedIn } from '../config/auth';
 
 
 const Inventory = () => {
 
-    // const [inventory, setInventory] = useState([]);
     const inventory = useContext(ItemContext);
-    const [selected, setSelected] = useState({});
-
-    // function getInventory(){
-    //     fetch(`https://jm-shop-api.herokuapp.com/api/inventory`)
-    //         .then(response => response.json())
-    //         .then(data => setInventory(data))
-    //     };
+    // const [selected, setSelected] = useState({});
 
     const handleSelected = (item) => {
         localStorage.setItem('selected', JSON.stringify(item))
     }
-    let { id } = useParams();
+    // let { id } = useParams();
     const item = inventory.map((item) => {
         return <a to={`/item/${item._id}` }onClick={() => handleSelected(item)} key={item._id}>
                 <ItemThumbnail item={item}/>
             </a>
     });
-
-    // useEffect(() => {
-    //     getInventory();
-    // }, []);
-
-
 
     const classes = useStyles();
     return(

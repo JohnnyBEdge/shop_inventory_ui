@@ -11,7 +11,16 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const Item = () => {
 
+    let existingCart = localStorage.getItem("cart");
     const [item] = useState(JSON.parse(localStorage.getItem('selected')));
+    const [cart] = useState(JSON.parse(existingCart));
+
+    const handleAddToCart = () => {
+        cart.push(item);
+        localStorage.setItem("cart", JSON.stringify(cart))
+    };
+
+
     const classes = useStyles();
     return(
         <div className={classes.itemContainer}>
@@ -45,7 +54,7 @@ const Item = () => {
                     variant="contained"
                     color="primary"
                     endIcon={<AddShoppingCartIcon />}
-                    // onClick={() => handleAddToCart()}
+                    onClick={() => handleAddToCart()}
                 >Add to Cart
                 </Button>
             </div>

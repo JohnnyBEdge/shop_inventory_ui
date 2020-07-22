@@ -5,7 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 
 const EditModal = (props) => {

@@ -1,6 +1,6 @@
-import React, {useState, useContext} from 'react';
-import {setToken, isLoggedIn} from '../config/auth';
-import {LoginStatus} from '../context/login-status-context';
+import React, {useState} from 'react';
+import {setToken} from '../config/auth';
+// import {LoginStatus} from '../context/login-status-context';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -22,7 +22,7 @@ const LoginForm = (props) => {
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [msg, setMsg] = useState('');
-    const {loginStatus, setLoginStatus} = useContext(LoginStatus);
+    // const {loginStatus, setLoginStatus} = useContext(LoginStatus);
 
 
 
@@ -50,7 +50,7 @@ const LoginForm = (props) => {
             if(response.status === 200) {
                 setToken(response.headers.get('authentication'),);
                 setMsg(<Redirect to='/inventory' />);
-                setLoginStatus("Logged In")
+                // setLoginStatus("Logged In")
             } else {
                 setMsg('Login Failed');
             } 
