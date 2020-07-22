@@ -59,12 +59,12 @@ const EditModal = (props) => {
 
     const classes = useStyles();
 
-    EditModal.propTypes = {
-        name: PropTypes.string.isRequired,
-        quantity: PropTypes.number.isRequired,
-        price: PropTypes.string.isRequired,
-        desc: PropTypes.string.isRequired
-    }
+    // EditModal.propTypes = {
+    //     name: PropTypes.string.isRequired,
+    //     quantity: PropTypes.number.isRequired,
+    //     price: PropTypes.string.isRequired,
+    //     desc: PropTypes.string.isRequired
+    // }
 
 
     return (

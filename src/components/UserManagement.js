@@ -16,7 +16,7 @@ const UserManagement = () => {
 const [users, setUsers] = useState([]);
 
 async function getUsers(){
-    const response = await fetch('http://localhost:5100/api/accounts');
+    const response = await fetch(`https://jm-shop-api.herokuapp.com/api/accounts`);
     response.json()
         .then(response => setUsers(response))
         // .catch(err => setError());
