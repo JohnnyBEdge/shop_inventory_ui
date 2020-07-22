@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import ItemThumbnail from '../components/ItemThumbnail';
+import {ItemContext} from '../context/item-context';
 
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,14 +9,15 @@ import { useParams } from "react-router";
 
 const Inventory = () => {
 
-    const [inventory, setInventory] = useState([]);
+    // const [inventory, setInventory] = useState([]);
+    const inventory = useContext(ItemContext);
     const [selected, setSelected] = useState({});
 
-    function getInventory(){
-        fetch(`https://jm-shop-api.herokuapp.com/api/inventory`)
-            .then(response => response.json())
-            .then(data => setInventory(data))
-        };
+    // function getInventory(){
+    //     fetch(`https://jm-shop-api.herokuapp.com/api/inventory`)
+    //         .then(response => response.json())
+    //         .then(data => setInventory(data))
+    //     };
 
     const handleSelected = (item) => {
         localStorage.setItem('selected', JSON.stringify(item))
@@ -27,9 +29,9 @@ const Inventory = () => {
             </a>
     });
 
-    useEffect(() => {
-        getInventory();
-    }, []);
+    // useEffect(() => {
+    //     getInventory();
+    // }, []);
 
 
 
