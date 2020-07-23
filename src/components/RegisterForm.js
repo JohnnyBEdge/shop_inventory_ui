@@ -80,7 +80,8 @@ const RegisterForm = (props) => {
             },
             body: JSON.stringify({fname, lname, email, password, isAdmin, cart})
         })
-        .then(() => {setFname(''); setLname(''); setEmail(''); setPassword(''); setPasswordMatch('')})
+        .then(() => {setFname(''); setLname(''); setEmail(''); setPassword(''); setPasswordMatch('')}
+        ).then(props.handleFormView)
 
     };
 
