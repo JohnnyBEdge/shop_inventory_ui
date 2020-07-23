@@ -2,10 +2,8 @@ import React, {useContext} from 'react';
 import ItemThumbnail from '../components/ItemThumbnail';
 import {ItemContext} from '../context/item-context';
 
-// import Link from '@material-ui/core/Link';
+
 import { makeStyles } from '@material-ui/core/styles';
-// import { useParams } from "react-router";
-// import { isLoggedIn } from '../config/auth';
 
 
 const Inventory = () => {

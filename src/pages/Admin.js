@@ -75,6 +75,7 @@ export default function Admin() {
       <TabPanel value={value} index={1}>
         <UserManagement />
       </TabPanel>
+      
 
     </div>
   );
