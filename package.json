@@ -1,6 +1,6 @@
 {
-  "homepage": "https://johnnybedge.github.io/shop_inventory_ui/",
-  "name": "shop-inventory-ui",
+  "homepage": "https://github.com/JohnnyBEdge/shopv2",
+  "name": "shopv2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
