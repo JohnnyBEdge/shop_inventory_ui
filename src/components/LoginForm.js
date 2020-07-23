@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {setToken} from '../config/auth';
 // import {LoginStatus} from '../context/login-status-context';
 
@@ -16,20 +16,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Redirect} from 'react-router-dom'
 
+
 const LoginForm = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [msg, setMsg] = useState('');
+
     // const {loginStatus, setLoginStatus} = useContext(LoginStatus);
-
-
 
     const toggle = () => {
         setRemember(!remember);
     };
-
 
     const handleLogin = () => {
         //checks if email and password is valid
@@ -50,21 +49,27 @@ const LoginForm = (props) => {
             if(response.status === 200) {
                 setToken(response.headers.get('authentication'),);
                 setMsg(<Redirect to='/inventory' />);
-                // setLoginStatus("Logged In")
             } else {
                 setMsg('Login Failed');
             } 
             return response.json()
         }).then(response => localStorage.setItem("user", JSON.stringify(response))
-        )
+        );
     };
 
     const classes = useStyles();
+
+    useEffect(() => {
+        const localEmail = localStorage.getItem('email');
+        if(localEmail){
+            setEmail(localEmail);
+            setRemember(true);
+        }
+    }, []);
     
     return(
 
         <div id="login_container">
-
             <Container component="main" maxWidth="xs" className={classes.formContainer}>
             <CssBaseline />
             <div className={classes.paper}>
@@ -139,7 +144,7 @@ const LoginForm = (props) => {
             </div>
         </Container>
     </div>
-
+    
     )
 };
 

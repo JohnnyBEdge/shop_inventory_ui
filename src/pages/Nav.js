@@ -13,7 +13,6 @@ import { isLoggedIn } from '../config/auth';
 
 const Nav = () => {
   // const [loginStatus, setLoginStatus] = useState(isLoggedIn() ? <Avatar/> : "Not logged innnn")
-  // const [user] = useState(JSON.parse(localStorage.getItem('user')));
 
     const classes = useStyles();
     return(
@@ -24,9 +23,6 @@ const Nav = () => {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" className={classes.title}> 
-                    {/* <Link to="/" style={{ textDecoration: 'none' }}> */}
-                    {/* Shop Inventory */}
-                    {/* </Link> */}
                 </Typography>
                     <span>
                     {/* {loginStatus} */}

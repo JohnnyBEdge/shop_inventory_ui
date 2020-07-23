@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 
-
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -77,7 +76,7 @@ const Avatar = () => {
                     </MenuItem>
                 </Menu>
                 </span>
-              :
+               :
                  <p> You are not logged in.</p>
                   }  
 
